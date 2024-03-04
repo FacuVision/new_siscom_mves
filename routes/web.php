@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,3 +27,15 @@ Route::middleware([
         return view('admin.index');
     })->name('dashboard');
 });
+
+
+// Route::get('/dashboard', function () {
+//     // Verifica si el usuario tiene el campo 'estado' activo
+//     if (Auth::check() && Auth::user()->estado === 'activo') {
+//         // Lógica para usuarios activos
+//         return view('admin.index');
+//     } else {
+//         // Si el usuario no tiene el campo 'estado' activo, lo redirige al welcome
+//         return redirect('/');
+//     }
+// })->name('dashboard');

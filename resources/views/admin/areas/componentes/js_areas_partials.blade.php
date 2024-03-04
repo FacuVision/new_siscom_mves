@@ -12,7 +12,6 @@
         $('#areas-table').DataTable({
             processing: true,
             serverSide: true,
-
             language: {
                 "lengthMenu": "Mostrando _MENU_ registros por pagina",
                 "zeroRecords": "No hay registros, lo sentimos",
@@ -47,9 +46,42 @@
             ],
             order: [
                 [0, 'desc']
-            ]
+            ],
+            pageLength: 50, // Aquí defines la cantidad de registros por página que deseas mostrar por defecto
+
         });
     }
 </script>
 
 {{-- #################################################### --}}
+
+
+
+{{-- ############ CREACION DE UNIDADES ORGÁNICAS (STORE) --}}
+
+<script>
+    $('#form_ajax').on('submit', function(e) {
+        e.preventDefault();
+        let formData = $(this).serialize();
+
+        $.ajax({
+            type: 'POST',
+            url: '{{ route('admin.categories.store') }}', // Reemplaza 'nombre_de_ruta' con la ruta de destino en tu aplicación
+            data: formData,
+            success: function(response) {
+                // Manejar la respuesta del servidor (opcional)
+                console.log(response);
+                table.ajax.reload(); //recargar la tabla
+
+            },
+            error: function(xhr) {
+                // Manejar errores (opcional)
+                console.error(xhr.responseText);
+            }
+        });
+
+        hideModal(); //ocultar modal de creacion
+    });
+</script>
+
+{{-- ######################## --}}

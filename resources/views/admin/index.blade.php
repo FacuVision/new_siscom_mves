@@ -1,7 +1,8 @@
 @extends('adminlte::page')
 @section('title', 'Dashboard')
 @section('content_header')
-    <h1>Menú Principal</h1>
+    <h1 class="mb-2">Menú Principal</h1>
+    <p>Bienvenido al Panel de Control de Siscom</p>
 @stop
 @section('content')
 
@@ -19,7 +20,7 @@
                             <div class="icon">
                                 <i class="fas fa-cubes"></i>
                             </div>
-                            <a href="{{ route('admin.areas.index')}}"  class="small-box-footer">
+                            <a href="{{ route('admin.areas.index') }}" class="small-box-footer">
                                 Ver <i class="fas fa-arrow-circle-right"></i>
                             </a>
                         </div>
@@ -109,14 +110,12 @@
 
         </div>
     </div>
-    <p>Welcome to this beautiful admin panel.</p>
 
 
 
 
 @stop
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
 @stop
 @section('js')
     <script>

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('lastname');
             $table->string('n_document')->unique();
             $table->string('document_type');
+            $table->enum('status', ['activo','inactivo'])->default('activo');
             $table->string('email');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

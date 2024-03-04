@@ -25,7 +25,8 @@ class AreaController extends Controller
         return DataTables::of($areas)
 
             ->addColumn('action', function ($area) {
-                return '<a href="javascript:void(0)" class="btn btn-sm btn-warning editButton" data-id="' . $area->id . '" data-toggle ="modal" data-target="#modal_categories_edit" id="area_edit"> Editar </a>' . "&nbsp" . '<a id="area_delete" href="javascript:void(0)" class="btn btn-sm btn-danger delButton" data-id="' . $area->id . '">Eliminar</a>';
+                return '<a href="javascript:void(0)" class="btn btn-sm btn-warning editButton" data-id="' . $area->id . '" data-toggle ="modal" data-target="#modal_categories_edit" id="area_edit"> <i class="fas fa-solid fa-pen"></i> </a>'
+                . "&nbsp" . '<a id="area_delete" href="javascript:void(0)" class="btn btn-sm btn-danger delButton" data-id="' . $area->id . '"><i class="fas fa-solid fa-trash"></i></a>';
             })
             ->rawColumns(['action'])
             ->make(true);

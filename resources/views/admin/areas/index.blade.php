@@ -10,12 +10,21 @@
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
+
+
+    <p>Aqui puedes gestionar las distintas Unidades Orgánicas de la entidad</p>
 
 
     <div class="card">
+
+        <div class="card-header">
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#md_create_area">
+                Crear registro
+            </button>
+        </div>
+
         <div class="card-body">
-                <table id="areas-table" class="table-striped dt-responsive nowrap display compact" style="width:100%">
+            <table id="areas-table" class="table-striped dt-responsive nowrap display compact" style="width:100%">
 
                 <thead>
                     <tr>
@@ -32,14 +41,22 @@
     </div>
 @stop
 @section('css')
-
 @stop
 
 @section('js')
 
-@include('admin.partials.js_datatables')
-@include('admin.areas.componentes.js_areas_partials')
+    @include('admin.partials.js_datatables')
 
+    @include('admin.areas.componentes.js_areas_partials')
+
+
+    @include('admin.areas.componentes.modal_areas_partials')
+
+        {{-- Modales --}}
+        {{--
+            md_create_area (creacion)
+            md_edit_area (edicion)
+        --}}
 
 
 

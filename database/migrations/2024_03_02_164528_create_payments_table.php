@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('month',30);
             $table->string('year',10);
 
-            $table->enum('satus', ['anulado','activo','modificado'])->default('activo');
+            $table->enum('status', ['anulado','activo','modificado'])->default('activo');
 
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('area_id');

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('siglas');
             $table->string('name');
+            $table->enum('status', ['activo','inactivo'])->default('activo');
             $table->timestamps();
         });
     }

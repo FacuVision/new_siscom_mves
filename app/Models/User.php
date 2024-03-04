@@ -30,6 +30,7 @@ class User extends Authenticatable
         'password',
         'n_document',
         'document_type',
+        'status'
     ];
 
     /**
