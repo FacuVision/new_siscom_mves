@@ -20,12 +20,12 @@ class AreaController extends Controller
     public function listar_areas()
     {
 
-        $areas = Area::select("id", "name", "siglas", "created_at", "updated_at")->get();
+        $areas = Area::select("id", "name", "siglas", "created_at", "updated_at")->where("status","activo")->get();
 
         return DataTables::of($areas)
 
             ->addColumn('action', function ($area) {
-                return '<a href="javascript:void(0)" class="btn btn-sm btn-warning editButton" data-id="' . $area->id . '" data-toggle ="modal" data-target="#modal_categories_edit" id="area_edit"> <i class="fas fa-solid fa-pen"></i> </a>'
+                return '<a href="javascript:void(0)" class="btn btn-sm btn-warning" data-id="' . $area->id . '" data-toggle ="modal" data-target="#md_edit_area" id="bt_area_edit"> <i class="fas fa-solid fa-pen"></i> </a>'
                 . "&nbsp" . '<a id="area_delete" href="javascript:void(0)" class="btn btn-sm btn-danger delButton" data-id="' . $area->id . '"><i class="fas fa-solid fa-trash"></i></a>';
             })
             ->rawColumns(['action'])
@@ -45,7 +45,15 @@ class AreaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Area::create([
+            "name" => $request->name,
+            "siglas" => $request->sigla
+        ]);
+
+        $request = null;
+
+        //return response()->json(['message' => 'Datos recibidos con éxito']);
+
     }
 
     /**
@@ -59,9 +67,11 @@ class AreaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Area $area)
+    public function edit($area_id)
     {
-        //
+        $area_edit = Area::select()->where("id",$area_id)->get();
+
+        return $area_edit;
     }
 
     /**

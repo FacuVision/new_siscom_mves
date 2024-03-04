@@ -7,6 +7,8 @@
     <h1>Gestion de Unidades Orgánicas</h1>
     @include('admin.partials.css_datatables')
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 @stop
 
 @section('content')
@@ -45,18 +47,20 @@
 
 @section('js')
 
+    {{-- Primero se definen las librerias --}}
     @include('admin.partials.js_datatables')
 
-    @include('admin.areas.componentes.js_areas_partials')
-
-
+    {{-- Segundo se definen las vistas --}}
     @include('admin.areas.componentes.modal_areas_partials')
 
-        {{-- Modales --}}
-        {{--
+    {{-- Tercero se definen las funciones --}}
+    @include('admin.areas.componentes.js_areas_partials')
+
+    {{-- Modales --}}
+    {{--
             md_create_area (creacion)
             md_edit_area (edicion)
-        --}}
+    --}}
 
 
 
