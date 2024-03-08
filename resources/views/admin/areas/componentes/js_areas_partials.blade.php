@@ -1,7 +1,14 @@
-{{-- ----- INICIALIZAR YAJRA-DATATABLES ########################### --}}
+{{-- ----- INICIALIZAR YAJRA-DATATABLES ############################################################ --}}
 
 <script>
     let area_table; // Declarar la variable en un ámbito más amplio
+    let listaErrores = $("#lista-errores-areas-edit");
+    let alerta_edit_areas = $("#alerta_edit_areas");
+
+    function limpiarListaErrores() {
+        listaErrores.empty();
+        alerta_edit_areas.hide();
+    }
 
     function cargar_lista_areas() {
         let lista_ajax = $('#areas-table').DataTable({
@@ -45,12 +52,11 @@
             pageLength: 50, // Aquí defines la cantidad de registros por página que deseas mostrar por defecto
 
         });
-
         return lista_ajax;
     }
 
 
-    // ########################## Funcion inciial para cargar el datatable por primera vez
+    // ############################################################ Funcion incial para cargar el datatable por primera vez
     $(document).ready(function() {
 
         //ESTE TOKEC CSRF LO SOLICITA LA LIBRERIA YAJRA PARA PODER HACER EL ENVIO DE LA
@@ -68,7 +74,7 @@
 
 
 
-    // ########################## Funcion Ocultar modal de creacion
+    // ############################################################ Funcion Ocultar modal de creacion
     function hideModal() {
         $("#area_sigla").val("");
         $("#area_name").val("");
@@ -80,9 +86,21 @@
         close_create.trigger('click');
     }
 
+    // ############################################################ Funcion Ocultar modal de edicion
+    function hideModalEdit() {
+        $("#area_sigla").val("");
+        $("#area_name").val("");
+
+        // Selecciona el botón por su id
+        var close_edit = $('#close_edit');
+
+        // Programáticamente dispara un evento de clic en el botón
+        close_edit.trigger('click');
+    }
 
 
-    // ########################## Funcion Crear
+
+    // ############################################################ Funcion Crear
     $('#form_create_area').on('submit', function(e) {
 
         e.preventDefault();
@@ -107,14 +125,12 @@
     });
 
 
-
-
-
-    // ########################## Funcion Editar
+    // ############################################################ Funcion Editar
 
     $('body').on('click', '#bt_area_edit', function() {
 
         var id = $(this).data('id');
+        limpiarListaErrores();
 
         //console.log(id);
 
@@ -137,5 +153,57 @@
                 console.error(xhr.responseText);
             }
         });
+    });
+
+
+
+
+    // ############################################################ Funcion Actualizar
+    //ajax para hacer la actualizacion enviado el formulario con los datos
+
+    $('#form_edit_area').on('submit', function(e) {
+        e.preventDefault();
+        let formData = $(this).serialize();
+        let id = $("#area_id").val();
+
+        // console.log(formData);
+        // console.log(id);
+
+        $.ajax({
+            type: 'PUT',
+            url: '{{ url('admin/areas', '') }}/' + id,
+            data: formData,
+            success: function(response) {
+                // Manejar la respuesta del servidor (opcional)
+                //console.log(response);
+
+                // Muestra Sweet Alert con el mensaje de respuesta
+
+                Swal.fire({
+                    type: "success",
+                    title: "Éxito!",
+                    text: response
+                });
+
+                area_table.ajax.reload(); //recargar la tabla
+
+                limpiarListaErrores();
+                hideModalEdit(); //ocultar modal de edicion
+            },
+            error: function(xhr) {
+                // Manejar errores (opcional)
+                if (xhr.status === 422) {
+                    var errores = xhr.responseJSON.errors;
+                    $.each(errores, function(index, error) {
+                        listaErrores.append("<li>" + error + "</li>");
+                    });
+                    alerta_edit_areas.show(); // Mostrar la alerta
+                }
+
+                //onsole.error(xhr.responseText);
+            }
+
+        });
+
     });
 </script>

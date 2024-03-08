@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AreaUpdateRequest;
 use App\Models\Area;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class AreaController extends Controller
 {
@@ -20,13 +22,13 @@ class AreaController extends Controller
     public function listar_areas()
     {
 
-        $areas = Area::select("id", "name", "siglas", "created_at", "updated_at")->where("status","activo")->get();
+        $areas = Area::select("id", "name", "siglas", "created_at", "updated_at")->where("status", "activo")->get();
 
         return DataTables::of($areas)
 
             ->addColumn('action', function ($area) {
                 return '<a href="javascript:void(0)" class="btn btn-sm btn-warning" data-id="' . $area->id . '" data-toggle ="modal" data-target="#md_edit_area" id="bt_area_edit"> <i class="fas fa-solid fa-pen"></i> </a>'
-                . "&nbsp" . '<a id="area_delete" href="javascript:void(0)" class="btn btn-sm btn-danger delButton" data-id="' . $area->id . '"><i class="fas fa-solid fa-trash"></i></a>';
+                    . "&nbsp" . '<a id="area_delete" href="javascript:void(0)" class="btn btn-sm btn-danger delButton" data-id="' . $area->id . '"><i class="fas fa-solid fa-trash"></i></a>';
             })
             ->rawColumns(['action'])
             ->make(true);
@@ -69,7 +71,7 @@ class AreaController extends Controller
      */
     public function edit($area_id)
     {
-        $area_edit = Area::select()->where("id",$area_id)->get();
+        $area_edit = Area::select()->where("id", $area_id)->get();
 
         return $area_edit;
     }
@@ -77,9 +79,15 @@ class AreaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Area $area)
+    public function update(AreaUpdateRequest $request, $id)
     {
-        //
+
+        $area = Area::FindOrFail($id);
+
+        $area->update([
+            "name" => $request->name_edit,
+            "siglas" => $request->siglas_edit
+        ]);
     }
 
     /**

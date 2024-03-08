@@ -1,7 +1,7 @@
 {{-- MODAL DE CREACION --}}
 
 <form id="form_create_area">
-    <div class="modal fade" id="md_create_area" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade" id="md_create_area" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -45,7 +45,7 @@
     <input type="hidden" name="area_id" id="area_id">
 
 
-    <div class="modal fade" id="md_edit_area" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade" id="md_edit_area" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -56,8 +56,14 @@
                 </div>
 
                 <div class="modal-body">
-                    <div class="form-group">
 
+                    {{-- DIV DE ERRORES --}}
+                    <div class="alert alert-danger" id="alerta_edit_areas" style="display: none;">
+                        <ul class="m-0" id="lista-errores-areas-edit"></ul>
+                    </div>
+                    {{-- FIN DE DIV DE ERRORES --}}
+
+                    <div class="form-group">
                         <div class="mb-3">
                             <label for="area_name" class="form-label">Nombre</label>
                             <input autocomplete="off" type="text" class="form-control" name="name_edit" id="name_edit"
