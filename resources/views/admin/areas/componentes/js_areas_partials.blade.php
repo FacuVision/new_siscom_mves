@@ -40,6 +40,10 @@
                     name: 'siglas'
                 },
                 {
+                    data: 'status',
+                    name: 'status'
+                },
+                {
                     data: 'action',
                     name: 'action',
                     orderable: false,
@@ -50,6 +54,15 @@
                 [0, 'desc']
             ],
             pageLength: 50, // Aquí defines la cantidad de registros por página que deseas mostrar por defecto
+
+            createdRow: function(row, data, dataIndex) {
+                // Añadir clase CSS a la columna 'status' según el valor
+                if (data.status == 'activo') {
+                    $('td:eq(3)', row).addClass('badge badge-success');
+                } else if (data.status == 'inactivo') {
+                    $('td:eq(3)', row).addClass('badge badge-secondary');
+                }
+            }
 
         });
         return lista_ajax;
@@ -200,8 +213,98 @@
                     alerta_edit_areas.show(); // Mostrar la alerta
                 }
 
-                //onsole.error(xhr.responseText);
+                //console.error(xhr.responseText);
             }
+        });
+
+    });
+
+
+
+
+
+    // ############################################################ Funcion Eliminar
+
+    //usamos el evento on() porque estamos trabajando con elementos que son dinamicos y no
+    //fueron creados al momento de iniciar la página, por ello no usamos ".click(function()"
+
+    $("body").on("click", "#area_delete", function() {
+
+        var id = $(this).data('id');
+
+        // Función para mostrar la ventana modal de confirmación
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "¡Estas por desactivar una unidad Orgánica (Esta ya no se verá en los graficos)",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: 'red',
+            confirmButtonText: 'Sí, desactivar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+
+            if (result.value) {
+                // Si el usuario hace clic en "Sí, eliminarlo"
+
+                // LOGICA DE ELIMINACION
+                $.ajax({
+                    type: 'DELETE',
+                    url: '{{ url('admin/areas', '') }}/' + id,
+                    success: function(response) {
+                        // Manejar la respuesta del servidor (opcional)
+                        area_table.ajax.reload(); //recargar la tabla
+                        console.log(response);
+                    },
+                    error: function(xhr) {
+                        // Manejar errores (opcional)
+                        console.error(xhr.responseText);
+                    }
+
+                });
+
+                Swal.fire(
+                    'Desactivado',
+                    'El elemento ha sido desactivado.',
+                    'success'
+                )
+            }
+
+        });
+
+
+    });
+
+
+    // ############################################################ Funcion ACtivar Unidad Orgánica
+
+    //usamos el evento on() porque estamos trabajando con elementos que son dinamicos y no
+    //fueron creados al momento de iniciar la página, por ello no usamos ".click(function()"
+
+    $("body").on("click", "#area_activate", function() {
+
+        var id = $(this).data('id');
+
+        // Función para mostrar la ventana modal de confirmación
+
+        // LOGICA DE ELIMINACION
+        $.ajax({
+            type: 'GET',
+            url: '{{ url('admin/areas', '') }}/' + id,
+            success: function(response) {
+                // Manejar la respuesta del servidor (opcional)
+                Swal.fire(
+                    'Activada',
+                    'El elemento ha sido activado.',
+                    'success'
+                );
+                area_table.ajax.reload(); //recargar la tabla
+            },
+            error: function(xhr) {
+                // Manejar errores (opcional)
+                console.error(xhr.responseText);
+            }
+
+
 
         });
 
