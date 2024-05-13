@@ -1,7 +1,8 @@
 {{-- MODAL DE CREACION --}}
 
 <form id="form_create_area">
-    <div class="modal fade" id="md_create_area" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal fade" id="md_create_area" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false"
+        data-backdrop="static">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -12,6 +13,12 @@
                 </div>
 
                 <div class="modal-body">
+
+                    {{-- DIV DE ERRORES --}}
+                    <div class="alert alert-danger" id="alerta_create_areas" style="display: none;">
+                        <ul class="m-0" id="lista-errores-areas-create"></ul>
+                    </div>
+                    {{-- FIN DE DIV DE ERRORES --}}
                     <div class="form-group">
 
                         <div class="mb-3">
@@ -45,7 +52,8 @@
     <input type="hidden" name="area_id" id="area_id">
 
 
-    <div class="modal fade" id="md_edit_area" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false" data-keyboard="false" data-backdrop="static">
+    <div class="modal fade" id="md_edit_area" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false"
+        data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -66,13 +74,13 @@
                     <div class="form-group">
                         <div class="mb-3">
                             <label for="area_name" class="form-label">Nombre</label>
-                            <input autocomplete="off" type="text" class="form-control" name="name_edit" id="name_edit"
-                                placeholder="Nombre de la Unidad Orgánica" />
+                            <input autocomplete="off" type="text" class="form-control" name="name_edit"
+                                id="name_edit" placeholder="Nombre de la Unidad Orgánica" />
                         </div>
                         <div class="mb-3">
                             <label for="sigla" class="form-label">Siglas</label>
-                            <input autocomplete="off" type="text" class="form-control" name="siglas_edit" id="siglas_edit"
-                                placeholder="Siglas de la Unidad Orgánica" />
+                            <input autocomplete="off" type="text" class="form-control" name="siglas_edit"
+                                id="siglas_edit" placeholder="Siglas de la Unidad Orgánica" />
                         </div>
                     </div>
                 </div>

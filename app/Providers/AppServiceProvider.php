@@ -38,7 +38,8 @@ class AppServiceProvider extends ServiceProvider
 
             if (!$user || !Hash::check($request->password, $user->password) || $user->status !== "activo") {
                 // Agrega un mensaje de error a la sesión
-                session()->flash('error', 'Error en la autenticación (usuario y/o contraseña incorreca) o usuario inactivo.');
+                session()->flash('error', 'Error en la autenticación (usuario y/o contraseña incorreca)
+                o el usuario se encuentra inactivo.');
 
                 // Retorna null para indicar que la autenticación no fue exitosa
                 return null;

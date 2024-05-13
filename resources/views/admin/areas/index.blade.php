@@ -13,7 +13,7 @@
     <p>Aqui puedes gestionar las distintas Unidades Orgánicas de la entidad</p>
     <div class="card">
         <div class="card-header">
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#md_create_area">
+            <button type="button" id="create_area_buttom_modal" class="btn btn-success" data-toggle="modal" data-target="#md_create_area">
                 Crear registro
             </button>
         </div>
@@ -37,17 +37,19 @@
     {{-- Primero se definen los partials --}}
     @include('admin.areas.componentes.modal_areas_partials')
 @stop
+
 @section('css')
+
 @stop
 
-@section('js')
-    {{-- Segundo se definen las librerias --}}
-    @include('admin.partials.js_datatables')
-    {{-- Tercero se definen las funciones --}}
-    @include('admin.areas.componentes.js_areas_partials')
-    {{-- Modales --}}
-    {{--
+    @section('js')
+        {{-- Segundo se definen las librerias --}}
+        @include('admin.partials.js_datatables')
+        {{-- Tercero se definen las funciones --}}
+        @include('admin.areas.componentes.js_areas_partials')
+        {{-- Modales --}}
+        {{--
             md_create_area (creacion)
             md_edit_area (edicion)
-    --}}
+        --}}
 @stop

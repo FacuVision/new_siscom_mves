@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AreaUpdateRequest;
+use App\Http\Requests\AreaCreateRequest;
 use App\Models\Area;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
@@ -45,11 +46,12 @@ class AreaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AreaCreateRequest $request)
     {
+
         Area::create([
-            "name" => $request->name,
-            "siglas" => $request->sigla
+            "name" => strtoupper($request->name),
+            "siglas" => strtoupper($request->sigla)
         ]);
 
         $request = null;
@@ -85,16 +87,18 @@ class AreaController extends Controller
         $area = Area::FindOrFail($id);
 
         $area->update([
-            "name" => $request->name_edit,
-            "siglas" => $request->siglas_edit
+            "name" => strtoupper($request->name_edit),
+            "siglas" => strtoupper($request->siglas_edit)
         ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Area $area)
+    public function destroy($id)
     {
-        //
+        $area = Area::FindOrFail($id);
+        $area->update(["status"=>"inactivo"]);
+       //return $area;
     }
 }
