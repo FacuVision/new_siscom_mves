@@ -5,9 +5,17 @@
     let listaErrores = $("#lista-errores-areas-edit");
     let alerta_edit_areas = $("#alerta_edit_areas");
 
+    let listaErroresCreate = $("#lista-errores-areas-create");
+    let alerta_create_areas = $("#alerta_create_areas");
+
     function limpiarListaErrores() {
         listaErrores.empty();
         alerta_edit_areas.hide();
+    }
+
+    function limpiarListaErroresCreate() {
+        listaErroresCreate.empty();
+        alerta_create_areas.hide();
     }
 
     function cargar_lista_areas() {
@@ -112,11 +120,19 @@
     }
 
 
+    // ############################################################ Funcion Para limpiar el campo de creacion del modal
+
+    $('#create_area_buttom_modal').click(function(e) {
+        limpiarListaErroresCreate();
+    });
+
 
     // ############################################################ Funcion Crear
     $('#form_create_area').on('submit', function(e) {
 
+        limpiarListaErroresCreate();
         e.preventDefault();
+
         let formData = $(this).serialize();
 
         $.ajax({
@@ -127,14 +143,29 @@
                 // Manejar la respuesta del servidor (opcional)
                 //console.log(response);
                 area_table.ajax.reload(); //recargar la tabla
+
+                Swal.fire({
+                    type: "success",
+                    title: "Éxito!",
+                    text: response
+                });
+
+                hideModal(); //ocultar modal de creacion
             },
             error: function(xhr) {
+
                 // Manejar errores (opcional)
-                console.error(xhr.responseText);
+                if (xhr.status === 422) {
+                    var errores = xhr.responseJSON.errors;
+                    $.each(errores, function(index, error) {
+                        listaErroresCreate.append("<li>" + error + "</li>");
+                    });
+                    alerta_create_areas.show(); // Mostrar la alerta
+                }
             }
         });
 
-        hideModal(); //ocultar modal de creacion
+
     });
 
 
@@ -175,7 +206,10 @@
     //ajax para hacer la actualizacion enviado el formulario con los datos
 
     $('#form_edit_area').on('submit', function(e) {
+
+        limpiarListaErrores();
         e.preventDefault();
+
         let formData = $(this).serialize();
         let id = $("#area_id").val();
 
@@ -195,12 +229,11 @@
                 Swal.fire({
                     type: "success",
                     title: "Éxito!",
-                    text: response
+                    text: "Registro actualizado correctamente"
                 });
 
                 area_table.ajax.reload(); //recargar la tabla
 
-                limpiarListaErrores();
                 hideModalEdit(); //ocultar modal de edicion
             },
             error: function(xhr) {
@@ -309,4 +342,83 @@
         });
 
     });
+
+    // ############################################################ Funcion Eliminar
+    //ajax para desactivar las areas
+
+    $("body").on("click", "#area_delete", function() {
+
+
+        var id = $(this).data('id');
+
+        // Puedes realizar una solicitud AJAX para eliminar el registro o cualquier otra acción que necesites
+        //e.preventDefault(); //NO ES NECESARIO ACTIVAR EL PREVENT DEFAULT CUANDO SE HACE UNA DESACTIVACION
+
+        Swal.fire({
+            title: "¿Estás seguro?",
+            text: "Si tu desactivas esta Unidad Orgánica, esta no podrá visualizarse en el menu de creacion de comprobantes",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, desactívalo"
+        }).then((result) => {
+            if (result) {
+                // Si el usuario hace clic en "Aceptar", ejecutamos la lógica de eliminación aquí
+
+                //console.log(id);
+                $.ajax({
+                    type: 'DELETE',
+                    url: '{{ url('admin/areas', '') }}/' + id,
+                    success: function(response) {
+                        // Manejar la respuesta del servidor (opcional)
+                        //console.log(response);
+                        area_table.ajax.reload(); //recargar la tabla
+                    },
+                    error: function(xhr) {
+                        // Manejar errores (opcional)
+                        console.error(xhr.responseText);
+                    }
+                });
+
+                Swal.fire({
+                    title: "Desactivado",
+                    text: "La unidad orgánica ha sido desactivada",
+                    type: "success"
+                });
+            }
+        });
+
+        // Si el usuario hace clic en "Cancelar", no hacemos nada
+        // Aquí puedes agregar cualquier otra acción que desees realizar si el usuario cancela
+
+    });
+
+
+    // ############################################################ Funcion ACtivar Unidad Orgánica
+
+    //usamos el evento on() porque estamos trabajando con elementos que son dinamicos y no
+    //fueron creados al momento de iniciar la página, por ello no usamos ".click(function()"
+    $("body").on("click", "#area_activate", function() {
+        var id = $(this).data('id');
+        // LOGICA DE ACTIVACION
+        $.ajax({
+            type: 'GET',
+            url: '{{ url('admin/areas', '') }}/' + id,
+            success: function(response) {
+                // Manejar la respuesta del servidor (opcional)
+                Swal.fire(
+                    'Activada',
+                    'La Unidad ha sido activada',
+                    'success'
+                );
+                area_table.ajax.reload(); //recargar la tabla
+            },
+            error: function(xhr) {
+                // Manejar errores (opcional)
+                console.error(xhr.responseText);
+            }
+        });
+    });
+
 </script>

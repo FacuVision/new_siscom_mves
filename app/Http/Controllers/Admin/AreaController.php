@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AreaUpdateRequest;
+use App\Http\Requests\AreaCreateRequest;
 use App\Models\Area;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
@@ -27,11 +28,13 @@ class AreaController extends Controller
         return DataTables::of($areas)
 
             ->addColumn('action', function ($area) {
-
+                //Si el status del area es activo se muestra la opcion de desactivar, de lo contrario se muestra para activar
                 if ($area->status == "activo") {
                     return '<a href="javascript:void(0)" class="btn btn-sm btn-warning" data-id="' . $area->id . '" data-toggle ="modal" data-target="#md_edit_area" id="bt_area_edit"> <i class="fas fa-solid fa-pen"></i> </a>'
                         . "&nbsp" . '<a id="area_delete" href="javascript:void(0)" class="btn btn-sm btn-danger" data-id="' . $area->id . '"><i class="fas fa-solid fa-trash"></i></a>';
-                } else {
+                }
+
+                else {
                     return '<a href="javascript:void(0)" class="btn btn-sm btn-warning" data-id="' . $area->id . '" data-toggle ="modal" data-target="#md_edit_area" id="bt_area_edit"> <i class="fas fa-solid fa-pen"></i> </a>'
                         . "&nbsp" . '<a id="area_activate" href="javascript:void(0)" class="btn btn-sm btn-success" data-id="' . $area->id . '"><i class="fas fa-solid fa-check"></i></a>';
                 }
@@ -51,11 +54,12 @@ class AreaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AreaCreateRequest $request)
     {
+
         Area::create([
-            "name" => $request->name,
-            "siglas" => $request->sigla
+            "name" => strtoupper($request->name),
+            "siglas" => strtoupper($request->sigla)
         ]);
 
         $request = null;
@@ -67,8 +71,10 @@ class AreaController extends Controller
     /**
      * ####################REACTIVAR AREA###################
      */
-    public function show($id) //Se está reutilizando para reactivar un area
+    public function show($id)
     {
+        //Se está reutilizando para reactivar un area
+
         $area = Area::findOrFail($id);
 
         if ($area) {
@@ -76,7 +82,6 @@ class AreaController extends Controller
                 "status" => "activo"
             ]);
         }
-
     }
 
     /**
@@ -97,8 +102,8 @@ class AreaController extends Controller
         $area = Area::FindOrFail($id);
 
         $area->update([
-            "name" => $request->name_edit,
-            "siglas" => $request->siglas_edit
+            "name" => strtoupper($request->name_edit),
+            "siglas" => strtoupper($request->siglas_edit)
         ]);
     }
 
@@ -107,6 +112,7 @@ class AreaController extends Controller
      */
     public function destroy($id)
     {
+        //
         $area = Area::findOrFail($id);
 
         if ($area) {
@@ -122,6 +128,5 @@ class AreaController extends Controller
         // !$area evaluará a true si $area es null o si no tiene un valor asignado.
 
         //$area->delete();
-
     }
 }

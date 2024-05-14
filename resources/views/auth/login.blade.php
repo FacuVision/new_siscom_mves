@@ -18,12 +18,12 @@
 
             <div>
                 <x-label for="n_document" value="{{ __('N° Documento') }}" />
-                <x-input id="n_document" class="block mt-1 w-full" name="n_document" :value="old('n_document')" required autofocus autocomplete="username" />
+                <x-input id="n_document" class="block mt-1 w-full" name="n_document" :value="old('n_document')" required autofocus autocomplete="off" />
             </div>
 
             <div class="mt-4">
                 <x-label for="password" value="{{ __('Contraseña') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
+                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="off" />
             </div>
 
             {{-- <div class="block mt-4">
@@ -41,7 +41,7 @@
                 @endif --}}
 
                 <x-button class="ms-4">
-                    {{ __('Log in') }}
+                    {{ __('Ingresar') }}
                 </x-button>
             </div>
         </form>
