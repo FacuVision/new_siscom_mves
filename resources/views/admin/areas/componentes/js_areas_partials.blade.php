@@ -147,7 +147,7 @@
                 Swal.fire({
                     type: "success",
                     title: "Éxito!",
-                    text: response
+                    text: "La Unidad Orgánica ha sido registrada correctamente"
                 });
 
                 hideModal(); //ocultar modal de creacion
@@ -279,7 +279,7 @@
             if (result.value) {
                 // Si el usuario hace clic en "Sí, eliminarlo"
 
-                // LOGICA DE ELIMINACION
+                // LOGICA DE ACTIVACION
                 $.ajax({
                     type: 'DELETE',
                     url: '{{ url('admin/areas', '') }}/' + id,
@@ -295,11 +295,11 @@
 
                 });
 
-                Swal.fire(
-                    'Desactivado',
-                    'El elemento ha sido desactivado.',
-                    'success'
-                )
+                Swal.fire({
+                    title: 'Desactivado',
+                    text: 'El elemento ha sido desactivado.',
+                    type: 'success'
+                })
             }
 
         });
@@ -325,12 +325,14 @@
             url: '{{ url('admin/areas', '') }}/' + id,
             success: function(response) {
                 // Manejar la respuesta del servidor (opcional)
-                Swal.fire(
-                    'Activada',
-                    'El elemento ha sido activado.',
-                    'success'
-                );
+
                 area_table.ajax.reload(); //recargar la tabla
+
+                Swal.fire({
+                    title: 'Activada',
+                    text: 'La Unidad Orgánica ha sido activada.',
+                    type: 'success'
+                });
             },
             error: function(xhr) {
                 // Manejar errores (opcional)
@@ -393,32 +395,4 @@
         // Aquí puedes agregar cualquier otra acción que desees realizar si el usuario cancela
 
     });
-
-
-    // ############################################################ Funcion ACtivar Unidad Orgánica
-
-    //usamos el evento on() porque estamos trabajando con elementos que son dinamicos y no
-    //fueron creados al momento de iniciar la página, por ello no usamos ".click(function()"
-    $("body").on("click", "#area_activate", function() {
-        var id = $(this).data('id');
-        // LOGICA DE ACTIVACION
-        $.ajax({
-            type: 'GET',
-            url: '{{ url('admin/areas', '') }}/' + id,
-            success: function(response) {
-                // Manejar la respuesta del servidor (opcional)
-                Swal.fire(
-                    'Activada',
-                    'La Unidad ha sido activada',
-                    'success'
-                );
-                area_table.ajax.reload(); //recargar la tabla
-            },
-            error: function(xhr) {
-                // Manejar errores (opcional)
-                console.error(xhr.responseText);
-            }
-        });
-    });
-
 </script>
