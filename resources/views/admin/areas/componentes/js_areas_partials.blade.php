@@ -48,6 +48,10 @@
                     name: 'siglas'
                 },
                 {
+                    data: 'status',
+                    name: 'status'
+                },
+                {
                     data: 'action',
                     name: 'action',
                     orderable: false,
@@ -58,6 +62,15 @@
                 [0, 'desc']
             ],
             pageLength: 50, // Aquí defines la cantidad de registros por página que deseas mostrar por defecto
+
+            createdRow: function(row, data, dataIndex) {
+                // Añadir clase CSS a la columna 'status' según el valor
+                if (data.status == 'activo') {
+                    $('td:eq(3)', row).addClass('badge badge-success');
+                } else if (data.status == 'inactivo') {
+                    $('td:eq(3)', row).addClass('badge badge-secondary');
+                }
+            }
 
         });
         return lista_ajax;
@@ -243,7 +256,10 @@
     // ############################################################ Funcion Eliminar
     //ajax para desactivar las areas
 
-    $("body").on("click", ".delButton", function() {
+    $("body").on("click", "#area_delete", function() {
+
+
+        var id = $(this).data('id');
 
         // Puedes realizar una solicitud AJAX para eliminar el registro o cualquier otra acción que necesites
         //e.preventDefault(); //NO ES NECESARIO ACTIVAR EL PREVENT DEFAULT CUANDO SE HACE UNA DESACTIVACION
@@ -260,7 +276,6 @@
             if (result) {
                 // Si el usuario hace clic en "Aceptar", ejecutamos la lógica de eliminación aquí
 
-                var id = $(this).data('id');
                 //console.log(id);
                 $.ajax({
                     type: 'DELETE',
@@ -288,4 +303,32 @@
         // Aquí puedes agregar cualquier otra acción que desees realizar si el usuario cancela
 
     });
+
+
+    // ############################################################ Funcion ACtivar Unidad Orgánica
+
+    //usamos el evento on() porque estamos trabajando con elementos que son dinamicos y no
+    //fueron creados al momento de iniciar la página, por ello no usamos ".click(function()"
+    $("body").on("click", "#area_activate", function() {
+        var id = $(this).data('id');
+        // LOGICA DE ACTIVACION
+        $.ajax({
+            type: 'GET',
+            url: '{{ url('admin/areas', '') }}/' + id,
+            success: function(response) {
+                // Manejar la respuesta del servidor (opcional)
+                Swal.fire(
+                    'Activada',
+                    'La Unidad ha sido activada',
+                    'success'
+                );
+                area_table.ajax.reload(); //recargar la tabla
+            },
+            error: function(xhr) {
+                // Manejar errores (opcional)
+                console.error(xhr.responseText);
+            }
+        });
+    });
+
 </script>
