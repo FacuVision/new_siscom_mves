@@ -23,10 +23,20 @@ class AreaUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name_edit" => "required",
+            "name" => "required|unique:areas",
             "siglas_edit" => "required"
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            "name.required" => "El nombre es obligatorio.",
+            "name.unique" => "El nombre de la Unidad Orgánica ya está en uso.",
+            "siglas_edit.required" => "La sigla es obligatoria."
+        ];
+    }
+
 
     /**
      * Customize the response for failed validation.

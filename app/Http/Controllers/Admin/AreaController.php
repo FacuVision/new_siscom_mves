@@ -103,7 +103,7 @@ class AreaController extends Controller
         $area = Area::FindOrFail($id);
 
         $area->update([
-            "name" => strtoupper($request->name_edit),
+            "name" => strtoupper($request->name),
             "siglas" => strtoupper($request->siglas_edit)
         ]);
     }

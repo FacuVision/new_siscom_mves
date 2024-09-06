@@ -1,5 +1,3 @@
-{{-- MODAL DE CREACION --}}
-
 <form id="form_create_area">
     <div class="modal fade" id="md_create_area" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false"
         data-backdrop="static">
@@ -75,7 +73,7 @@
                         <div class="mb-3">
                             <label for="area_name" class="form-label">Nombre</label>
                             <input autocomplete="off" type="text" class="form-control" name="name"
-                            id="name" placeholder="Nombre de la Unidad Orgánica" />
+                                id="name" placeholder="Nombre de la Unidad Orgánica" />
                         </div>
                         <div class="mb-3">
                             <label for="sigla" class="form-label">Siglas</label>

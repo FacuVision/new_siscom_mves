@@ -146,9 +146,9 @@ return [
     |
     */
 
-    'attributes' => [
-        'siglas_edit' => 'Siglas',
-        'name_edit' => 'Nombre de Unidad Orgánica',
-       ],
+    // 'attributes' => [
+    //     'siglas_edit' => 'Siglas',
+    //     'name_edit' => 'Nombre de Unidad Orgánica',
+    //    ],
 
 ];

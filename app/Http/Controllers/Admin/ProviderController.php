@@ -13,7 +13,14 @@ class ProviderController extends Controller
      */
     public function index()
     {
-        //
+        return view("admin.providers.index");
+
+    }
+
+   public function listar_providers()
+    {
+        return view("admin.providers.index");
+
     }
 
     /**

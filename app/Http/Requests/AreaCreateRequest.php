@@ -22,8 +22,17 @@ class AreaCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name" => "required",
+            "name" => "required|unique:areas",
             "sigla" => "required"
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            "name.required" => "El nombre es obligatorio.",
+            "name.unique" => "El nombre de la Unidad Orgánica ya está en uso.",
+            "sigla.required" => "La sigla es obligatoria."
         ];
     }
 
