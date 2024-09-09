@@ -334,6 +334,11 @@ return [
             'icon' => 'fas fa-shopping-cart',
         ],
         [
+            'text' => 'Tipos de Contrato',
+            'route'  => 'admin.contracts.index',
+            'icon' => 'fas fa-university',
+        ],
+        [
             'text'       => 'important',
             'icon_color' => 'red',
             'url'        => '#',
@@ -436,7 +441,7 @@ return [
                 [
                     'type' => 'js',
                     'asset' => true,
-                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@11',
+                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@11'
                     //'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
                 ],
             ],

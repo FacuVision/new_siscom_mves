@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AreaController;
+use App\Http\Controllers\Admin\ContractTypeController;
 use App\Http\Controllers\Admin\ProviderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HomeController;
@@ -16,3 +17,8 @@ Route::resource('providers', ProviderController::class)->names("admin.providers"
     Route::get("listar_providers", [ProviderController::class , "listar_providers"])->name("admin.providers.listar_providers");
     /* Notas:
     - function show($id) - Se está reutilizando para reactivar un proveedor */
+
+Route::resource('contract_types', ContractTypeController::class)->names("admin.contracts");
+    Route::get("listar_contracts", [ContractTypeController::class , "listar_contracts"])->name("admin.contracts.listar_contracts");
+    /* Notas:
+    - function show($id) - Se está reutilizando para reactivar un tipo de contrato */

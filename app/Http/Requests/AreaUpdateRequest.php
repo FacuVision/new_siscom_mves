@@ -22,8 +22,10 @@ class AreaUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        $id = $this->route('area'); // Obtén el ID del registro actual desde la ruta
+
         return [
-            "name" => "required|unique:areas",
+            "name" => "required|unique:areas,name,". $id,
             "siglas_edit" => "required"
         ];
     }

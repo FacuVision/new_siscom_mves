@@ -197,45 +197,7 @@
             }
         });
     });
-    // ############################################################ Funcion Eliminar
-    //usamos el evento on() porque estamos trabajando con elementos que son dinamicos y no
-    //fueron creados al momento de iniciar la página, por ello no usamos ".click(function()"
-    $("body").on("click", "#provider_delete", function() {
-        var id = $(this).data('id');
-        // Función para mostrar la ventana modal de confirmación
-        Swal.fire({
-            title: '¿Estás seguro?',
-            text: "¡Estas por desactivar una unidad Orgánica (Esta ya no se verá en los graficos)",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: 'red',
-            confirmButtonText: 'Sí, desactivar',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.value) {
-                // Si el usuario hace clic en "Sí, eliminarlo"
-                // LOGICA DE ACTIVACION
-                $.ajax({
-                    type: 'DELETE',
-                    url: '{{ url('admin/providers', '') }}/' + id,
-                    success: function(response) {
-                        // Manejar la respuesta del servidor (opcional)
-                        provider_table.ajax.reload(); //recargar la tabla
-                        //console.log(response);
-                    },
-                    error: function(xhr) {
-                        // Manejar errores (opcional)
-                        console.error(xhr.responseText);
-                    }
-                });
-                Swal.fire({
-                    title: 'Desactivado',
-                    text: 'El elemento ha sido desactivado.',
-                    icon: 'success'
-                })
-            }
-        });
-    });
+
     // ############################################################ Funcion ACtivar Unidad Orgánica
     //usamos el evento on() porque estamos trabajando con elementos que son dinamicos y no
     //fueron creados al momento de iniciar la página, por ello no usamos ".click(function()"
