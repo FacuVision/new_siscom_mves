@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-@section('title', 'Dashboard')
+@section('title', 'SISCOM 2.0')
 @section('content_header')
     <h1 class="mb-2">Menú Principal</h1>
     <p>Bienvenido al Panel de Control de Siscom</p>
@@ -8,114 +8,76 @@
 
     <div class="card">
         <div class="card-body">
-            <div>
-                <div class="row">
-
-                    <div class="col">
-                        <div class="small-box bg-info">
-                            <div class="inner">
-                                <h3>Unidades Orgánicas</h3>
-                                <p>10 registros</p>
-                            </div>
-                            <div class="icon">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
+                <div class="col">
+                    <a href="{{ route('admin.areas.index') }}">
+                        <div class="info-box bg-primary shadow-on-hover">
+                            <span class="info-box-icon">
                                 <i class="fas fa-cubes"></i>
+                            </span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Unidades Orgánicas</span>
+                                <span class="info-box-number">10 registros</span>
                             </div>
-                            <a href="{{ route('admin.areas.index') }}" class="small-box-footer">
-                                Ver <i class="fas fa-arrow-circle-right"></i>
-                            </a>
+                        </div>
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="{{ route('admin.providers.index') }}">
+                        <div class="info-box bg-olive shadow-on-hover ">
+                            <span class="info-box-icon"><i class="fas fa-shopping-cart"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Proveedores</span>
+                                <span class="info-box-number">10 registros</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col">
+                    <div class="info-box bg-cyan shadow-on-hover">
+                        <span class="info-box-icon"><i class="fas fa-user-plus"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Usuarios</span>
+                            <span class="info-box-number">10 registros</span>
                         </div>
                     </div>
-                    <div class="col">
-                        <div class="small-box bg-primary">
-                            <div class="inner">
-                                <h3>Proveedores</h3>
-                                <p>150 registros</p>
-                            </div>
-                            <div class="icon">
-                                <i class="fas fa-shopping-cart"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">
-                                Ver <i class="fas fa-arrow-circle-right"></i>
-                            </a>
+                </div>
+                <div class="col">
+                    <div class="info-box bg-purple shadow-on-hover">
+                        <span class="info-box-icon"><i class="fas fa-university"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Tipos de Contrato</span>
+                            <span class="info-box-number">10 registros</span>
                         </div>
                     </div>
-
-                    <div class="col">
-                        <div class="small-box bg-success">
-                            <div class="inner">
-                                <h3>Usuarios</h3>
-                                <p>03 registros</p>
-                            </div>
-                            <div class="icon">
-                                <i class="fas fa-user-plus"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">
-                                Ver <i class="fas fa-arrow-circle-right"></i>
-                            </a>
+                </div>
+                <div class="col">
+                    <div class="info-box bg-gray shadow-on-hover ">
+                        <span class="info-box-icon"><i class="fas fa-regular fa-address-book"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Historial</span>
+                            <span class="info-box-number">10 registros</span>
                         </div>
                     </div>
                 </div>
 
-
-
-                <div class="row">
-                    <div class="col">
-                        <div class="small-box bg-warning">
-                            <div class="inner">
-                                <h3>Tipos de Contrato</h3>
-                                <p>100 registros</p>
-                            </div>
-                            <div class="icon">
-                                <i class="fas fa-solid fa-briefcase"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">
-                                Ver <i class="fas fa-arrow-circle-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="small-box bg-secondary">
-                            <div class="inner">
-                                <h3>Historial</h3>
-                                <p>136 registros</p>
-                            </div>
-                            <div class="icon">
-                                <i class="fas fa-regular fa-address-book"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">
-                                Ver <i class="fas fa-arrow-circle-right"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="small-box bg-teal">
-                            <div class="inner">
-                                <h3>Comprobantes de pago</h3>
-                                <p>70 registros</p>
-                            </div>
-                            <div class="icon">
-                                <i class="fas fa-solid fa-clipboard"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">
-                                Ver <i class="fas fa-arrow-circle-right"></i>
-                            </a>
+                <div class="col">
+                    <div class="info-box bg-yellow shadow-on-hover ">
+                        <span class="info-box-icon"><i class="fas fa-solid fa-clipboard"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Comprobantes de pago</span>
+                            <span class="info-box-number">10 registros</span>
                         </div>
                     </div>
                 </div>
-
             </div>
-
-
-
         </div>
     </div>
 
-
-
-
 @stop
 @section('css')
+
+    @include('admin.partials.css_index')
 @stop
 @section('js')
     <script>

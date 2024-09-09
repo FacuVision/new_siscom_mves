@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('providers', function (Blueprint $table) {
             $table->id();
-            $table->string('n_siaf');
             $table->string('bussiness_name');
             $table->enum('status', ['activo','inactivo'])->default('activo');
             $table->timestamps();

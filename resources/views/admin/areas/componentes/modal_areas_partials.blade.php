@@ -74,8 +74,8 @@
                     <div class="form-group">
                         <div class="mb-3">
                             <label for="area_name" class="form-label">Nombre</label>
-                            <input autocomplete="off" type="text" class="form-control" name="name_edit"
-                                id="name_edit" placeholder="Nombre de la Unidad Orgánica" />
+                            <input autocomplete="off" type="text" class="form-control" name="name"
+                            id="name" placeholder="Nombre de la Unidad Orgánica" />
                         </div>
                         <div class="mb-3">
                             <label for="sigla" class="form-label">Siglas</label>

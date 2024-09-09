@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AreaCreateRequest extends FormRequest
+class ProviderUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -19,30 +19,20 @@ class AreaCreateRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
+    public function rules()
     {
         return [
-            "name" => "required|unique:areas",
-            "sigla" => "required"
+            "bussiness_name" => "required|unique:providers"
+        ];
+    }
+    public function messages()
+    {
+        return [
+            "bussiness_name.required" => "El nombre o razon social es obligatorio.",
+            "bussiness_name.unique" => "El nombre o razon social ya está en uso.",
         ];
     }
 
-    public function messages(): array
-    {
-        return [
-            "name.required" => "El nombre es obligatorio.",
-            "name.unique" => "El nombre de la Unidad Orgánica ya está en uso.",
-            "sigla.required" => "La sigla es obligatoria."
-        ];
-    }
-
-
-    /**
-     * Customize the response for failed validation.
-     *
-     * @param  \Illuminate\Contracts\Validation\Validator  $validator
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function response(array $errors)
     {
         return response()->json(['errors' => $errors], 422);

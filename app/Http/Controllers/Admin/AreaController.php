@@ -7,8 +7,6 @@ use App\Http\Requests\AreaUpdateRequest;
 use App\Http\Requests\AreaCreateRequest;
 use App\Models\Area;
 use Yajra\DataTables\Facades\DataTables;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class AreaController extends Controller
 {
@@ -102,7 +100,7 @@ class AreaController extends Controller
         $area = Area::FindOrFail($id);
 
         $area->update([
-            "name" => strtoupper($request->name_edit),
+            "name" => strtoupper($request->name),
             "siglas" => strtoupper($request->siglas_edit)
         ]);
     }

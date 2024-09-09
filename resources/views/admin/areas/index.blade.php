@@ -1,31 +1,37 @@
 @extends('adminlte::page')
+@section('title', 'SISCOM 2.0')
 
-@section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Gestion de Unidades Orgánicas</h1>
+    {{-- <h1>Gestion de Unidades Orgánicas</h1> --}}
     {{-- Importamos los css de los datatables --}}
     @include('admin.partials.css_datatables')
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @stop
 
 @section('content')
-    <p>Aqui puedes gestionar las distintas Unidades Orgánicas de la entidad</p>
-    <div class="card">
-        <div class="card-header">
-            <button type="button" id="create_area_buttom_modal" class="btn btn-success" data-toggle="modal" data-target="#md_create_area">
-                Crear registro
-            </button>
+     {{-- <p>Aqui puedes gestionar las distintas Unidades Orgánicas de la entidad</p> --}}
+     <div class="card card-outline card-primary">
+        <div class="card-header text-center">
+            <i class="fas fa-cubes"></i>
+            <strong>
+                GESTION DE UNIDADES ORGÁNICAS
+            </strong>
         </div>
         <div class="card-body">
-            <table id="areas-table" class="table-striped dt-responsive nowrap display compact" style="width:100%">
+            <div class="mb-3">
+                <button type="button" id="create_area_buttom_modal" class="btn btn-success" data-toggle="modal" data-target="#md_create_area">
+                    Crear registro
+                </button>
+            </div>
 
+            <table id="areas-table" class="table-striped table-hover dt-responsive nowrap display compact" style="width:100%">
                 <thead>
                     <tr>
                         <th>Id</th>
                         <th>Nombre</th>
                         <th>Siglas</th>
-                        <th>Status</th>
+                        <th>Estado</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>

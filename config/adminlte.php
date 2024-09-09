@@ -63,12 +63,12 @@ return [
     |
     */
 
-    'logo' => '<b>SISCOM</b>MVES',
-    // 'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-    // 'logo_img_class' => 'brand-image img-circle elevation-3',
-    // 'logo_img_xl' => null,
-    // 'logo_img_xl_class' => 'brand-image-xs',
-    // 'logo_img_alt' => 'Admin Logo',
+    'logo' => '<b>SISCOM </b>MVES',
+    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo_img_class' => 'brand-image img-circle elevation-3',
+    'logo_img_xl' => null,
+    'logo_img_xl_class' => 'brand-image-xs',
+    'logo_img_alt' => 'Admin Logo',
 
     /*
     |--------------------------------------------------------------------------
@@ -155,7 +155,7 @@ return [
     'layout_fixed_sidebar' => true,
     'layout_fixed_navbar' => null,
     'layout_fixed_footer' => null,
-    'layout_dark_mode' => null,
+    'layout_dark_mode' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -196,7 +196,7 @@ return [
     'classes_content' => '',
     'classes_sidebar' => 'sidebar-dark-primary elevation-4',
     'classes_sidebar_nav' => '',
-    'classes_topnav' => 'navbar-dark navbar-dark',
+    'classes_topnav' => 'navbar-dark',
     'classes_topnav_nav' => 'navbar-expand',
     'classes_topnav_container' => 'container',
 
@@ -329,6 +329,11 @@ return [
             'icon' => 'fas fa-cubes',
         ],
         [
+            'text' => 'Proveedores',
+            'route'  => 'admin.providers.index',
+            'icon' => 'fas fa-shopping-cart',
+        ],
+        [
             'text'       => 'important',
             'icon_color' => 'red',
             'url'        => '#',
@@ -431,7 +436,8 @@ return [
                 [
                     'type' => 'js',
                     'asset' => true,
-                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
+                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@11',
+                    //'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
                 ],
             ],
         ],
