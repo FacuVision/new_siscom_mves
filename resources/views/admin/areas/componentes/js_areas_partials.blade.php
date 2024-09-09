@@ -140,10 +140,10 @@
             url: '{{ route('admin.areas.store') }}', // Reemplaza 'nombre_de_ruta' con la ruta de destino en tu aplicación
             data: formData,
             success: function(response) {
-                   area_table.ajax.reload(); //recargar la tabla
+                area_table.ajax.reload(); //recargar la tabla
 
                 Swal.fire({
-                    type: "success",
+                    icon: "success",
                     title: "Éxito!",
                     text: response
                 });
@@ -225,7 +225,7 @@
                 // Muestra Sweet Alert con el mensaje de respuesta
 
                 Swal.fire({
-                    type: "success",
+                    icon: "success",
                     title: "Éxito!",
                     text: "Registro actualizado correctamente"
                 });
@@ -267,13 +267,13 @@
         Swal.fire({
             title: "¿Estás seguro?",
             text: "Si tu desactivas esta Unidad Orgánica, esta no podrá visualizarse en el menu de creacion de comprobantes",
-            type: "warning",
+            icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             confirmButtonText: "Sí, desactívalo"
         }).then((result) => {
-            if (result) {
+            if (result.isConfirmed) {
                 // Si el usuario hace clic en "Aceptar", ejecutamos la lógica de eliminación aquí
 
                 //console.log(id);
@@ -294,7 +294,7 @@
                 Swal.fire({
                     title: "Desactivado",
                     text: "La unidad orgánica ha sido desactivada",
-                    type: "success"
+                    icon: "success"
                 });
             }
         });
@@ -317,11 +317,11 @@
             url: '{{ url('admin/areas', '') }}/' + id,
             success: function(response) {
                 // Manejar la respuesta del servidor (opcional)
-                Swal.fire(
-                    'Activada',
-                    'La Unidad ha sido activada',
-                    'success'
-                );
+                Swal.fire({
+                    title: "Activada",
+                    text: "La Unidad ha sido activada",
+                    icon: "success"
+                });
                 area_table.ajax.reload(); //recargar la tabla
             },
             error: function(xhr) {
@@ -330,5 +330,4 @@
             }
         });
     });
-
 </script>

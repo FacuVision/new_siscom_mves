@@ -7,8 +7,6 @@ use App\Http\Requests\AreaUpdateRequest;
 use App\Http\Requests\AreaCreateRequest;
 use App\Models\Area;
 use Yajra\DataTables\Facades\DataTables;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class AreaController extends Controller
 {

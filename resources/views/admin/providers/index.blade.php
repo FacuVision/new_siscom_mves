@@ -22,18 +22,17 @@
         <div class="card-body">
 
             <div class="mb-3">
-                <button type="button" id="create_area_buttom_modal" class="btn btn-success" data-toggle="modal" data-target="#md_create_area">
+                <button type="button" id="create_provider_buttom_modal" class="btn btn-success" data-toggle="modal" data-target="#md_create_provider">
                     Crear registro
                 </button>
             </div>
 
-            <table id="areas-table" class="table-striped table-hover dt-responsive nowrap display compact" style="width:100%">
+            <table id="providers-table" class="table-striped table-hover dt-responsive nowrap display compact" style="width:100%">
 
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>N° SIAF</th>
-                        <th>Nombre</th>
+                        <th>Proveedor</th>
                         <th>Estado</th>
                         <th>Acciones</th>
                     </tr>
