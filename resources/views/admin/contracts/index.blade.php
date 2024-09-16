@@ -6,6 +6,8 @@
     {{-- Importamos los css de los datatables --}}
     @include('admin.partials.css_datatables')
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="stylesheet" href="{{ asset('images/AdminLTELogo.png') }}">
+
 @stop
 
 @section('content')

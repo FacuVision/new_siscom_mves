@@ -26,7 +26,7 @@
                             </span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Unidades Orgánicas</span>
-                                <span class="info-box-number">10 registros</span>
+                                <span class="info-box-number">{{$conteo["unidades"]}} registros</span>
                             </div>
                         </div>
                     </a>
@@ -37,7 +37,7 @@
                             <span class="info-box-icon"><i class="fas fa-shopping-cart"></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Proveedores</span>
-                                <span class="info-box-number">10 registros</span>
+                                <span class="info-box-number">{{$conteo["proveedores"]}} registros</span>
                             </div>
                         </div>
                     </a>
@@ -49,12 +49,13 @@
                         <span class="info-box-icon"><i class="fas fa-university"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-text">Tipos de Contrato</span>
-                            <span class="info-box-number">10 registros</span>
+                            <span class="info-box-number">{{$conteo["contratos"]}} registros</span>
                         </div>
                     </div>
                     </a>
                 </div>
                 <div class="col">
+                    <a href="{{ route('admin.documents.index')}}">
                     <div class="info-box bg-maroon shadow-on-hover">
                         <span class="info-box-icon"><i class="fas fa-book"></i></span>
                         <div class="info-box-content">
@@ -62,6 +63,7 @@
                             <span class="info-box-number">10 registros</span>
                         </div>
                     </div>
+                    </a>
                 </div>
                 <div class="col">
                     <div class="info-box bg-gray shadow-on-hover ">

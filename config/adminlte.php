@@ -323,36 +323,53 @@ return [
         ],
 
         ['header' => 'MODULOS'],
+
         [
-            'text' => 'Unidades Orgánicas',
-            'route'  => 'admin.areas.index',
-            'icon' => 'fas fa-cubes',
+            'text' => 'MANTENIMIENTO',
+            'icon' => 'fas fa-cogs',
+            'submenu' => [
+                [
+                    'text' => 'Unidades Orgánicas',
+                    'route'  => 'admin.areas.index',
+                    'icon' => 'fas fa-cubes',
+                ],
+                [
+                    'text' => 'Proveedores',
+                    'route'  => 'admin.providers.index',
+                    'icon' => 'fas fa-shopping-cart',
+                ],
+                [
+                    'text' => 'Tipos de Contrato',
+                    'route'  => 'admin.contracts.index',
+                    'icon' => 'fas fa-university',
+                ],
+
+                [
+                    'text' => 'Tipos de Documento',
+                    'route'  => 'admin.documents.index',
+                    'icon' => 'fas fa-book',
+                ],
+                [
+                    'text'       => 'important',
+                    'icon_color' => 'red',
+                    'url'        => '#',
+                ],
+                [
+                    'text'       => 'warning',
+                    'icon_color' => 'yellow',
+                    'url'        => '#',
+                ],
+                [
+                    'text'       => 'information',
+                    'icon_color' => 'cyan',
+                    'url'        => '#',
+                ],
+            ]
         ],
-        [
-            'text' => 'Proveedores',
-            'route'  => 'admin.providers.index',
-            'icon' => 'fas fa-shopping-cart',
-        ],
-        [
-            'text' => 'Tipos de Contrato',
-            'route'  => 'admin.contracts.index',
-            'icon' => 'fas fa-university',
-        ],
-        [
-            'text'       => 'important',
-            'icon_color' => 'red',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'warning',
-            'icon_color' => 'yellow',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'information',
-            'icon_color' => 'cyan',
-            'url'        => '#',
-        ],
+
+
+
+
     ],
 
     /*
