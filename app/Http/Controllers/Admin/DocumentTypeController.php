@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\DocumentType;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Requests\DocumentTypeCreateRequest;
+use App\Http\Requests\DocumentTypeUpdateRequest;
 
 class DocumentTypeController extends Controller
 {
@@ -54,7 +55,7 @@ class DocumentTypeController extends Controller
     {
 
         DocumentType::create([
-            "name" => $request->name
+            "name" => strtoupper($request->name)
         ]);
 
         $request = null;
@@ -63,32 +64,54 @@ class DocumentTypeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $tipo_documento = DocumentType::findOrFail($id);
+
+        if($tipo_documento){
+            $tipo_documento->update([
+                "status" => "activo"
+            ]);
+        }
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $tipo_documento = DocumentType::findOrFail($id);
+
+        if($tipo_documento){
+            return $tipo_documento;
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(DocumentTypeUpdateRequest $request, $id)
     {
-        //
+        $tipo_documento = DocumentType::findOrFail($id);
+
+        if($tipo_documento){
+            $tipo_documento->update([
+                "name" => strtoupper($request->name)
+            ]);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $tipo_documento = DocumentType::findOrFail($id);
+
+        if($tipo_documento){
+            $tipo_documento->update([
+                "status" => "inactivo"
+            ]);
+        }
     }
 }

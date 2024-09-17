@@ -144,14 +144,16 @@
 
         $.ajax({
             type: 'GET',
-            url: '{{ url('admin/documents', '') }}/' + id + '/edit',
+            url: '{{ url('admin/document_types', '') }}/' + id + '/edit',
             success: function(response) {
+
+                // console.log(response);
                 // Manejar la respuesta del servidor (opcional)
                 //console.log(response.siglas);
                 //UNA VEZ QUE SE HAYA RECEPCIONADO EL MODELO POR AJAX, SE PROCEDE A LA ACTUALIZACION
 
-                $("#document_title").html(response[0].bussiness_name)
-                $("#bussiness_name_edit").val(response[0].bussiness_name);
+                $("#document_title").html(response.name)
+                $("#name_edit").val(response.name);
                 $("#document_id").val(id);
             },
             error: function(xhr) {
@@ -167,11 +169,11 @@
         e.preventDefault();
         let formData = $(this).serialize();
         let id = $("#document_id").val();
-        // console.log(formData);
+        console.log(formData);
         // console.log(id);
         $.ajax({
             type: 'PUT',
-            url: '{{ url('admin/documents', '') }}/' + id,
+            url: '{{ url('admin/document_types', '') }}/' + id,
             data: formData,
             success: function(response) {
                 // Manejar la respuesta del servidor (opcional)
@@ -210,7 +212,7 @@
         // console.log(id);
         $.ajax({
             type: 'GET',
-            url: '{{ url('admin/documents', '') }}/' + id,
+            url: '{{ url('admin/document_types', '') }}/' + id,
             success: function(response) {
                 // Manejar la respuesta del servidor (opcional)
                 document_table.ajax.reload(); //recargar la tabla
@@ -247,7 +249,7 @@
                 //console.log(id);
                 $.ajax({
                     type: 'DELETE',
-                    url: '{{ url('admin/documents', '') }}/' + id,
+                    url: '{{ url('admin/document_types', '') }}/' + id,
                     success: function(response) {
                         // Manejar la respuesta del servidor (opcional)
                         //console.log(response);

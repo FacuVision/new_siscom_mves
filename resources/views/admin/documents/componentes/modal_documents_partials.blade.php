@@ -67,7 +67,7 @@
                     <div class="form-group">
                         <div class="mb-3">
                             <label for="name" class="form-label">Nombre del tipo de documento</label>
-                            <input autocomplete="off" type="text" class="form-control" name="name_document"
+                            <input autocomplete="off" type="text" class="form-control" name="name"
                                 id="name_edit" placeholder="Nombre del tipo de documento" />
                         </div>
 

@@ -11,7 +11,7 @@ class DocumentTypeUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,17 @@ class DocumentTypeUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        $id = $this->route('document_type'); // Obtén el ID del registro actual desde la ruta
+
         return [
-            //
+            "name" => "required|unique:document_types,name,". $id
         ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            "name.required" => "El nombre es obligatorio.",
+            "name.unique" => "El nombre del tipo de documento ya está en uso."];
     }
 }
