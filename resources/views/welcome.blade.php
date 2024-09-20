@@ -10,6 +10,8 @@
     <meta name="description" content="description here">
     <meta name="keywords" content="keywords,here">
 
+    <link rel="icon" type="image/png" sizes="152x152" href="http://192.168.11.13/siscom2024/img/favicon/apple-icon-152x152.png">
+
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
     <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet"> <!--Totally optional :) -->
 </head>

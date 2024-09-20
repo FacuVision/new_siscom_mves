@@ -5,7 +5,7 @@
         /* Transición suave de 0.3 segundos */
     }
     .shadow-on-hover:hover {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
         /* Sombra leve al pasar el mouse */
     }
 </style>

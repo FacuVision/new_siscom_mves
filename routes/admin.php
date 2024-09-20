@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DocumentTypeController;
 use App\Http\Controllers\Admin\ProviderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\UserController;
 
 Route::get('/', [HomeController::class,"index"])->name("admin.index");
 
@@ -27,4 +28,10 @@ Route::resource('contract_types', ContractTypeController::class)->names("admin.c
 Route::resource('document_types', DocumentTypeController::class)->names("admin.documents");
     Route::get("listar_documents", [DocumentTypeController::class , "listar_documents"])->name("admin.documents.listar_documents");
     /* Notas:
-    - function show($id) - Se está reutilizando para reactivar un tipo de contrato */
+    - function show($id) - Se está reutilizando para reactivar un tipo de documento */
+
+Route::resource('users', UserController::class)->names('admin.users');
+Route::get("listar_usuarios", [UserController::class , "listar_usuarios"])->name("admin.users.listar_usuarios");
+Route::get("admin.users.listar_roles", [UserController::class , "listar_roles"])->name("admin.users.listar_roles");
+    /* Notas:
+    - function show($id) - Se está reutilizando para reactivar un usuario */

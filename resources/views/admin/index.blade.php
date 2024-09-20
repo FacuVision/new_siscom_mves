@@ -10,13 +10,16 @@
         <div class="card-body">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
                 <div class="col">
-                    <div class="info-box bg-navy shadow-on-hover">
-                        <span class="info-box-icon"><i class="fas fa-user-plus"></i></span>
-                        <div class="info-box-content">
-                            <span class="info-box-text">Usuarios</span>
-                            <span class="info-box-number">10 registros</span>
+                    <a href="{{ route('admin.users.index') }}">
+
+                        <div class="info-box bg-info shadow-on-hover">
+                            <span class="info-box-icon"><i class="fas fa-user-plus"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Usuarios</span>
+                                <span class="info-box-number">{{ $conteo['unidades'] }} registros</span>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
                 <div class="col">
                     <a href="{{ route('admin.areas.index') }}">
@@ -26,7 +29,7 @@
                             </span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Unidades Orgánicas</span>
-                                <span class="info-box-number">{{$conteo["unidades"]}} registros</span>
+                                <span class="info-box-number">{{ $conteo['unidades'] }} registros</span>
                             </div>
                         </div>
                     </a>
@@ -37,32 +40,32 @@
                             <span class="info-box-icon"><i class="fas fa-shopping-cart"></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Proveedores</span>
-                                <span class="info-box-number">{{$conteo["proveedores"]}} registros</span>
+                                <span class="info-box-number">{{ $conteo['proveedores'] }} registros</span>
                             </div>
                         </div>
                     </a>
                 </div>
 
                 <div class="col">
-                    <a href="{{ route('admin.contracts.index')}}">
-                    <div class="info-box bg-purple shadow-on-hover">
-                        <span class="info-box-icon"><i class="fas fa-university"></i></span>
-                        <div class="info-box-content">
-                            <span class="info-box-text">Tipos de Contrato</span>
-                            <span class="info-box-number">{{$conteo["contratos"]}} registros</span>
+                    <a href="{{ route('admin.contracts.index') }}">
+                        <div class="info-box bg-purple shadow-on-hover">
+                            <span class="info-box-icon"><i class="fas fa-university"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Tipos de Contrato</span>
+                                <span class="info-box-number">{{ $conteo['contratos'] }} registros</span>
+                            </div>
                         </div>
-                    </div>
                     </a>
                 </div>
                 <div class="col">
-                    <a href="{{ route('admin.documents.index')}}">
-                    <div class="info-box bg-maroon shadow-on-hover">
-                        <span class="info-box-icon"><i class="fas fa-book"></i></span>
-                        <div class="info-box-content">
-                            <span class="info-box-text">Tipos de Documentos</span>
-                            <span class="info-box-number">10 registros</span>
+                    <a href="{{ route('admin.documents.index') }}">
+                        <div class="info-box bg-maroon shadow-on-hover">
+                            <span class="info-box-icon"><i class="fas fa-book"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Tipos de Documentos</span>
+                                <span class="info-box-number">{{ $conteo['tipos_documentos'] }} registros </span>
+                            </div>
                         </div>
-                    </div>
                     </a>
                 </div>
                 <div class="col">
