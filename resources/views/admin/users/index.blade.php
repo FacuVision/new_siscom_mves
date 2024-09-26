@@ -11,30 +11,32 @@
 
 @section('content')
      {{-- <p>Aqui puedes gestionar las distintas Unidades Orgánicas de la entidad</p> --}}
-     <div class="card card-outline card-primary">
+     <div class="card card-outline card-info">
         <div class="card-header text-center">
             <i class="fas fa-cubes"></i>
             <strong>
-                GESTION DE UNIDADES ORGÁNICAS
+                GESTION DE USUARIOS
             </strong>
         </div>
         <div class="card-body">
             <div class="mb-3">
-                <button type="button" id="create_area_buttom_modal" class="btn btn-success" data-toggle="modal" data-target="#md_create_area">
-                    Crear registro
+                <button type="button" id="create_user_buttom_modal" class="btn btn-success" data-toggle="modal" data-target="#md_create_user">
+                    Registrar un usuario
                 </button>
             </div>
 
-            <table id="areas-table" class="table-striped table-hover dt-responsive nowrap display compact" style="width:100%">
+            <table id="users-table" class="table-striped table-hover dt-responsive nowrap display compact" style="width:100%">
                 <thead>
                     <tr>
                         <th>Id</th>
                         <th>Nombre</th>
-                        <th>Siglas</th>
+                        <th>Apellidos</th>
+                        <th>Tipo de documento</th>
+                        <th>Número de documento</th>
                         <th>Estado</th>
+                        <th>Rol</th>
                         <th>Acciones</th>
                     </tr>
-
                 </thead>
                 <tbody>
                 </tbody>
@@ -43,7 +45,7 @@
     </div>
 
     {{-- Primero se definen los partials --}}
-    @include('admin.areas.componentes.modal_areas_partials')
+    @include('admin.users.componentes.modal_users_partials')
 @stop
 
 @section('css')
@@ -54,10 +56,10 @@
         {{-- Segundo se definen las librerias --}}
         @include('admin.partials.js_datatables')
         {{-- Tercero se definen las funciones --}}
-        @include('admin.areas.componentes.js_areas_partials')
+        @include('admin.users.componentes.js_users_partials')
         {{-- Modales --}}
         {{--
-            md_create_area (creacion)
-            md_edit_area (edicion)
+            md_create_user (creacion)
+            md_edit_user (edicion)
         --}}
 @stop

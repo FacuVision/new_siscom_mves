@@ -1,25 +1,25 @@
 {{-- ----- INICIALIZAR YAJRA-DATATABLES ############################################################ --}}
 
 <script>
-    let area_table; // Declarar la variable en un ámbito más amplio
-    let listaErrores = $("#lista-errores-areas-edit");
-    let alerta_edit_areas = $("#alerta_edit_areas");
+    let contract_table; // Declarar la variable en un ámbito más amplio
+    let listaErrores = $("#lista-errores-contracts-edit");
+    let alerta_edit_contracts = $("#alerta_edit_contracts");
 
-    let listaErroresCreate = $("#lista-errores-areas-create");
-    let alerta_create_areas = $("#alerta_create_areas");
+    let listaErroresCreate = $("#lista-errores-contracts-create");
+    let alerta_create_contracts = $("#alerta_create_contracts");
 
     function limpiarListaErrores() {
         listaErrores.empty();
-        alerta_edit_areas.hide();
+        alerta_edit_contracts.hide();
     }
 
     function limpiarListaErroresCreate() {
         listaErroresCreate.empty();
-        alerta_create_areas.hide();
+        alerta_create_contracts.hide();
     }
 
-    function cargar_lista_areas() {
-        let lista_ajax = $('#areas-table').DataTable({
+    function cargar_lista_contracts() {
+        let lista_ajax = $('#contracts-table').DataTable({
             processing: true,
             serverSide: true,
             language: {
@@ -34,7 +34,7 @@
                     'previous': 'Anterior'
                 }
             },
-            ajax: '{{ route('admin.areas.listar_areas') }}',
+            ajax: '{{ route('admin.contracts.listar_contracts') }}',
             columns: [{
                     data: 'id',
                     name: 'id'
@@ -42,10 +42,6 @@
                 {
                     data: 'name',
                     name: 'name'
-                },
-                {
-                    data: 'siglas',
-                    name: 'siglas'
                 },
                 {
                     data: 'status',
@@ -66,9 +62,9 @@
             createdRow: function(row, data, dataIndex) {
                 // Añadir clase CSS a la columna 'status' según el valor
                 if (data.status == 'activo') {
-                    $('td:eq(3)', row).addClass('badge badge-success');
+                    $('td:eq(2)', row).addClass('badge badge-success');
                 } else if (data.status == 'inactivo') {
-                    $('td:eq(3)', row).addClass('badge badge-secondary');
+                    $('td:eq(2)', row).addClass('badge badge-secondary');
                 }
             }
 
@@ -88,7 +84,8 @@
             }
         });
 
-        area_table = cargar_lista_areas()
+        contract_table = cargar_lista_contracts();
+
     });
 
 
@@ -97,8 +94,8 @@
 
     // ############################################################ Funcion Ocultar modal de creacion
     function hideModal() {
-        $("#area_sigla").val("");
-        $("#area_name").val("");
+        $("#contract_sigla").val("");
+        $("#contract_name").val("");
 
         // Selecciona el botón por su id
         var close_create = $('#close_create');
@@ -109,8 +106,8 @@
 
     // ############################################################ Funcion Ocultar modal de edicion
     function hideModalEdit() {
-        $("#area_sigla").val("");
-        $("#area_name").val("");
+        $("#contract_sigla").val("");
+        $("#contract_name").val("");
 
         // Selecciona el botón por su id
         var close_edit = $('#close_edit');
@@ -122,13 +119,13 @@
 
     // ############################################################ Funcion Para limpiar el campo de creacion del modal
 
-    $('#create_area_buttom_modal').click(function(e) {
+    $('#create_contract_buttom_modal').click(function(e) {
         limpiarListaErroresCreate();
     });
 
 
     // ############################################################ Funcion Crear
-    $('#form_create_area').on('submit', function(e) {
+    $('#form_create_contract').on('submit', function(e) {
 
         limpiarListaErroresCreate();
         e.preventDefault();
@@ -137,12 +134,12 @@
 
         $.ajax({
             type: 'POST',
-            url: '{{ route('admin.areas.store') }}', // Reemplaza 'nombre_de_ruta' con la ruta de destino en tu aplicación
+            url: '{{ route('admin.contracts.store') }}', // Reemplaza 'nombre_de_ruta' con la ruta de destino en tu aplicación
             data: formData,
             success: function(response) {
                 // Manejar la respuesta del servidor (opcional)
                 //console.log(response);
-                area_table.ajax.reload(); //recargar la tabla
+                contract_table.ajax.reload(); //recargar la tabla
 
                 Swal.fire({
                     icon: "success",
@@ -160,7 +157,7 @@
                     $.each(errores, function(index, error) {
                         listaErroresCreate.append("<li>" + error + "</li>");
                     });
-                    alerta_create_areas.show(); // Mostrar la alerta
+                    alerta_create_contracts.show(); // Mostrar la alerta
                 }
             }
         });
@@ -171,7 +168,7 @@
 
     // ############################################################ Funcion Editar
 
-    $('body').on('click', '#bt_area_edit', function() {
+    $('body').on('click', '#bt_contract_edit', function() {
 
         var id = $(this).data('id');
         limpiarListaErrores();
@@ -180,17 +177,14 @@
 
         $.ajax({
             type: 'GET',
-            url: '{{ url('admin/areas', '') }}/' + id + '/edit',
+            url: '{{ url('admin/contract_types', '') }}/' + id + '/edit',
             success: function(response) {
                 // Manejar la respuesta del servidor (opcional)
-
                 //console.log(response.siglas);
                 //UNA VEZ QUE SE HAYA RECEPCIONADO EL MODELO POR AJAX, SE PROCEDE A LA ACTUALIZACION
-                $("#area_title").html(response[0].name)
-                $("#siglas_edit").val(response[0].siglas);
-                $("#name_edit").val(response[0].name);
-                $("#area_id").val(id);
-
+                $("#contract_title").html(response.name)
+                $("#contract_name_edit").val(response.name);
+                $("#contract_id").val(id);
             },
             error: function(xhr) {
                 // Manejar errores (opcional)
@@ -200,25 +194,23 @@
     });
 
 
-
-
     // ############################################################ Funcion Actualizar
     //ajax para hacer la actualizacion enviado el formulario con los datos
 
-    $('#form_edit_area').on('submit', function(e) {
+    $('#form_edit_contract').on('submit', function(e) {
 
         limpiarListaErrores();
         e.preventDefault();
 
         let formData = $(this).serialize();
-        let id = $("#area_id").val();
+        let id = $("#contract_id").val();
 
         // console.log(formData);
         // console.log(id);
 
         $.ajax({
             type: 'PUT',
-            url: '{{ url('admin/areas', '') }}/' + id,
+            url: '{{ url('admin/contract_types', '') }}/' + id,
             data: formData,
             success: function(response) {
                 // Manejar la respuesta del servidor (opcional)
@@ -232,7 +224,7 @@
                     text: "Registro actualizado correctamente"
                 });
 
-                area_table.ajax.reload(); //recargar la tabla
+                contract_table.ajax.reload(); //recargar la tabla
 
                 hideModalEdit(); //ocultar modal de edicion
             },
@@ -243,68 +235,68 @@
                     $.each(errores, function(index, error) {
                         listaErrores.append("<li>" + error + "</li>");
                     });
-                    alerta_edit_areas.show(); // Mostrar la alerta
+                    alerta_edit_contracts.show(); // Mostrar la alerta
                 }
 
-                //onsole.error(xhr.responseText);
-                console.error(xhr.responseText);
-
+                //console.error(xhr.responseText);
             }
-
-
-
         });
 
     });
 
+
+
+
+
     // ############################################################ Funcion Eliminar
-    //ajax para desactivar las areas
 
-    $("body").on("click", "#area_delete", function() {
+    //usamos el evento on() porque estamos trabajando con elementos que son dinamicos y no
+    //fueron creados al momento de iniciar la página, por ello no usamos ".click(function()"
 
+    $("body").on("click", "#contract_delete", function() {
 
         var id = $(this).data('id');
 
-        // Puedes realizar una solicitud AJAX para eliminar el registro o cualquier otra acción que necesites
-        //e.preventDefault(); //NO ES NECESARIO ACTIVAR EL PREVENT DEFAULT CUANDO SE HACE UNA DESACTIVACION
-
+        // Función para mostrar la ventana modal de confirmación
         Swal.fire({
-            title: "¿Estás seguro?",
-            text: "Si tu desactivas esta Unidad Orgánica, esta no podrá visualizarse en el menu de creacion de comprobantes",
-            icon: "warning",
+            title: '¿Estás seguro?',
+            text: "¡Estas por desactivar este tipo de contrato (Esta ya no se mostrará en la emision de comprobates)",
+            icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Sí, desactívalo"
+            confirmButtonColor: '3085d6',
+            confirmButtonText: 'Sí, desactivar',
+            cancelButtonText: 'Cancelar'
         }).then((result) => {
-            if (result.isConfirmed) {
-                // Si el usuario hace clic en "Aceptar", ejecutamos la lógica de eliminación aquí
 
-                //console.log(id);
+            if (result.isConfirmed) {
+                // Si el usuario hace clic en "Sí, eliminarlo"
+
+                // LOGICA DE ELIMINACION
                 $.ajax({
                     type: 'DELETE',
-                    url: '{{ url('admin/areas', '') }}/' + id,
+                    url: '{{ url('admin/contract_types', '') }}/' + id,
                     success: function(response) {
+                        console.log(response);
                         // Manejar la respuesta del servidor (opcional)
-                        //console.log(response);
-                        area_table.ajax.reload(); //recargar la tabla
+                        contract_table.ajax.reload(); //recargar la tabla
+                        console.log(response);
                     },
                     error: function(xhr) {
                         // Manejar errores (opcional)
                         console.error(xhr.responseText);
                     }
+
                 });
 
                 Swal.fire({
-                    title: "Desactivado",
-                    text: "La unidad orgánica ha sido desactivada",
-                    icon: "success"
+                    icon: "success",
+                    title: "Éxito!",
+                    text: "Registro desactivado correctamente"
                 });
             }
+
         });
 
-        // Si el usuario hace clic en "Cancelar", no hacemos nada
-        // Aquí puedes agregar cualquier otra acción que desees realizar si el usuario cancela
 
     });
 
@@ -313,12 +305,47 @@
 
     //usamos el evento on() porque estamos trabajando con elementos que son dinamicos y no
     //fueron creados al momento de iniciar la página, por ello no usamos ".click(function()"
-    $("body").on("click", "#area_activate", function() {
+
+    $("body").on("click", "#contract_activate", function() {
+
+        var id = $(this).data('id');
+
+        // Función para mostrar la ventana modal de confirmación
+
+        // LOGICA DE ELIMINACION
+        $.ajax({
+            type: 'GET',
+            url: '{{ url('admin/contract_types', '') }}/' + id,
+            success: function(response) {
+                // Manejar la respuesta del servidor (opcional)
+                Swal.fire(
+                    'Activada',
+                    'El elemento ha sido activado.',
+                    'success'
+                );
+                contract_table.ajax.reload(); //recargar la tabla
+            },
+            error: function(xhr) {
+                // Manejar errores (opcional)
+                console.error(xhr.responseText);
+            }
+
+
+
+        });
+
+    });
+
+    // ############################################################ Funcion ACtivar Unidad Orgánica
+
+    //usamos el evento on() porque estamos trabajando con elementos que son dinamicos y no
+    //fueron creados al momento de iniciar la página, por ello no usamos ".click(function()"
+    $("body").on("click", "#contract_activate", function() {
         var id = $(this).data('id');
         // LOGICA DE ACTIVACION
         $.ajax({
             type: 'GET',
-            url: '{{ url('admin/areas', '') }}/' + id,
+            url: '{{ url('admin/contracts', '') }}/' + id,
             success: function(response) {
                 // Manejar la respuesta del servidor (opcional)
                 Swal.fire(
@@ -326,7 +353,7 @@
                     'La Unidad ha sido activada',
                     'success'
                 );
-                area_table.ajax.reload(); //recargar la tabla
+                contract_table.ajax.reload(); //recargar la tabla
             },
             error: function(xhr) {
                 // Manejar errores (opcional)

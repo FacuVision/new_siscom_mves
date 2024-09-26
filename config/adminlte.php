@@ -315,6 +315,7 @@ return [
             'text' => 'profile',
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-user',
+
         ],
         [
             'text' => 'change_password',
@@ -323,31 +324,66 @@ return [
         ],
 
         ['header' => 'MODULOS'],
+
         [
-            'text' => 'Unidades Orgánicas',
-            'route'  => 'admin.areas.index',
-            'icon' => 'fas fa-cubes',
+            'text' => 'MANTENIMIENTO',
+            'icon' => 'fas fa-cogs',
+            'submenu' => [
+
+                [
+                    'text' => 'Usuarios',
+                    'route'  => 'admin.users.index',
+                    'icon' => 'fas fa-book',
+                    'can'  => 'admin.users.activation',
+                ],
+                [
+                    'text' => 'Unidades Orgánicas',
+                    'route'  => 'admin.areas.index',
+                    'icon' => 'fas fa-cubes',
+                    'can'  => 'admin.areas.activation',
+
+                ],
+                [
+                    'text' => 'Proveedores',
+                    'route'  => 'admin.providers.index',
+                    'icon' => 'fas fa-shopping-cart',
+                    'can'  => 'admin.providers.activation',
+                ],
+                [
+                    'text' => 'Tipos de Contrato',
+                    'route'  => 'admin.contracts.index',
+                    'icon' => 'fas fa-university',
+                    'can'  => 'admin.contract_types.activation',
+                ],
+
+                [
+                    'text' => 'Tipos de Documento',
+                    'route'  => 'admin.documents.index',
+                    'icon' => 'fas fa-book',
+                    'can'  => 'admin.document_types.activation',
+                ],
+
+                [
+                    'text'       => 'important',
+                    'icon_color' => 'red',
+                    'url'        => '#',
+                ],
+                [
+                    'text'       => 'warning',
+                    'icon_color' => 'yellow',
+                    'url'        => '#',
+                ],
+                [
+                    'text'       => 'information',
+                    'icon_color' => 'cyan',
+                    'url'        => '#',
+                ],
+            ]
         ],
-        [
-            'text' => 'Proveedores',
-            'route'  => 'admin.providers.index',
-            'icon' => 'fas fa-shopping-cart',
-        ],
-        [
-            'text'       => 'important',
-            'icon_color' => 'red',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'warning',
-            'icon_color' => 'yellow',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'information',
-            'icon_color' => 'cyan',
-            'url'        => '#',
-        ],
+
+
+
+
     ],
 
     /*
@@ -436,7 +472,7 @@ return [
                 [
                     'type' => 'js',
                     'asset' => true,
-                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@11',
+                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@11'
                     //'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
                 ],
             ],

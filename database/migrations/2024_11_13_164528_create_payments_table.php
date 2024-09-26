@@ -29,6 +29,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('area_id');
             $table->unsignedBigInteger('contract_type_id');
+            $table->unsignedBigInteger('document_type_id');
             $table->unsignedBigInteger('provider_id');
 
             $table->foreign('user_id')
@@ -48,6 +49,10 @@ return new class extends Migration
             $table->foreign('provider_id')
             ->references('id')
             ->on('providers');
+
+            $table->foreign('document_type_id')
+            ->references('id')
+            ->on('document_types');
 
             $table->timestamps();
 

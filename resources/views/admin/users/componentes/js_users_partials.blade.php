@@ -1,25 +1,55 @@
 {{-- ----- INICIALIZAR YAJRA-DATATABLES ############################################################ --}}
 
 <script>
-    let area_table; // Declarar la variable en un ámbito más amplio
-    let listaErrores = $("#lista-errores-areas-edit");
-    let alerta_edit_areas = $("#alerta_edit_areas");
+    let user_table; // Declarar la variable en un ámbito más amplio
+    let listaErrores = $("#lista-errores-users-edit");
+    let alerta_edit_users = $("#alerta_edit_users");
 
-    let listaErroresCreate = $("#lista-errores-areas-create");
-    let alerta_create_areas = $("#alerta_create_areas");
+    let listaErroresCreate = $("#lista-errores-users-create");
+    let alerta_create_users = $("#alerta_create_users");
 
     function limpiarListaErrores() {
         listaErrores.empty();
-        alerta_edit_areas.hide();
+        alerta_edit_users.hide();
     }
 
     function limpiarListaErroresCreate() {
         listaErroresCreate.empty();
-        alerta_create_areas.hide();
+        alerta_create_users.hide();
     }
 
-    function cargar_lista_areas() {
-        let lista_ajax = $('#areas-table').DataTable({
+
+    //CARGAR LOS ROLES DE ACCESO DEL SISTEMA
+    function cargar_roles_de_acceso() {
+        $.ajax({
+            type: 'GET',
+            url: '{{ route('admin.users.listar_roles') }}',
+            success: function(response) {
+                // Manejar la respuesta del servidor (opcional)
+                //console.log(response);
+
+                var selectroles = $('#user_select_roles');
+                selectroles.empty(); // Limpia cualquier opción previa
+                response.forEach(function(rol) {
+                    selectroles.append($('<option>', {
+                        value: rol.name,
+                        text: rol.name_detail
+                    }));
+                });
+            },
+
+
+            error: function(xhr) {
+                // Manejar errores (opcional)
+                console.error(xhr.responseText);
+            }
+        });
+    }
+
+    function cargar_lista_users() {
+
+
+        let lista_ajax = $('#users-table').DataTable({
             processing: true,
             serverSide: true,
             language: {
@@ -34,8 +64,10 @@
                     'previous': 'Anterior'
                 }
             },
-            ajax: '{{ route('admin.areas.listar_areas') }}',
-            columns: [{
+
+            ajax: '{{ route('admin.users.listar_usuarios') }}',
+            columns: [
+                {
                     data: 'id',
                     name: 'id'
                 },
@@ -44,12 +76,24 @@
                     name: 'name'
                 },
                 {
-                    data: 'siglas',
-                    name: 'siglas'
+                    data: 'lastname',
+                    name: 'lastname'
+                },
+                {
+                    data: 'n_document',
+                    name: 'n_document'
+                },
+                {
+                    data: 'document_type',
+                    name: 'document_type'
                 },
                 {
                     data: 'status',
                     name: 'status'
+                },
+                {
+                    data: 'name_detail',
+                    name: 'name_detail'
                 },
                 {
                     data: 'action',
@@ -66,9 +110,9 @@
             createdRow: function(row, data, dataIndex) {
                 // Añadir clase CSS a la columna 'status' según el valor
                 if (data.status == 'activo') {
-                    $('td:eq(3)', row).addClass('badge badge-success');
+                    $('td:eq(5)', row).addClass('badge badge-success');
                 } else if (data.status == 'inactivo') {
-                    $('td:eq(3)', row).addClass('badge badge-secondary');
+                    $('td:eq(5)', row).addClass('badge badge-secondary');
                 }
             }
 
@@ -88,7 +132,7 @@
             }
         });
 
-        area_table = cargar_lista_areas()
+        user_table = cargar_lista_users();
     });
 
 
@@ -97,8 +141,8 @@
 
     // ############################################################ Funcion Ocultar modal de creacion
     function hideModal() {
-        $("#area_sigla").val("");
-        $("#area_name").val("");
+        $("#user_sigla").val("");
+        $("#user_name").val("");
 
         // Selecciona el botón por su id
         var close_create = $('#close_create');
@@ -109,8 +153,8 @@
 
     // ############################################################ Funcion Ocultar modal de edicion
     function hideModalEdit() {
-        $("#area_sigla").val("");
-        $("#area_name").val("");
+        $("#user_sigla").val("");
+        $("#user_name").val("");
 
         // Selecciona el botón por su id
         var close_edit = $('#close_edit');
@@ -122,37 +166,48 @@
 
     // ############################################################ Funcion Para limpiar el campo de creacion del modal
 
-    $('#create_area_buttom_modal').click(function(e) {
+    // $('#create_user_buttom_modal').click(function(e) {
+    //     limpiarListaErroresCreate();
+    //     cargar_roles_de_acceso();
+    // });
+
+
+    $('#create_user_buttom_modal').on('click', function(e) {
         limpiarListaErroresCreate();
+        cargar_roles_de_acceso();
     });
 
-
     // ############################################################ Funcion Crear
-    $('#form_create_area').on('submit', function(e) {
+    $('#form_create_user').on('submit', function(e) {
 
         limpiarListaErroresCreate();
         e.preventDefault();
 
         let formData = $(this).serialize();
 
+        console.log(formData);
+
         $.ajax({
             type: 'POST',
-            url: '{{ route('admin.areas.store') }}', // Reemplaza 'nombre_de_ruta' con la ruta de destino en tu aplicación
+            url: '{{ route('admin.users.store') }}', // Reemplaza 'nombre_de_ruta' con la ruta de destino en tu aplicación
             data: formData,
             success: function(response) {
                 // Manejar la respuesta del servidor (opcional)
                 //console.log(response);
-                area_table.ajax.reload(); //recargar la tabla
+                user_table.ajax.reload(); //recargar la tabla
 
                 Swal.fire({
                     icon: "success",
                     title: "Éxito!",
-                    text: response
+                    text: 'Registro actualizado correctamente'
                 });
 
                 hideModal(); //ocultar modal de creacion
             },
             error: function(xhr) {
+
+                console.log(xhr);
+
 
                 // Manejar errores (opcional)
                 if (xhr.status === 422) {
@@ -160,7 +215,7 @@
                     $.each(errores, function(index, error) {
                         listaErroresCreate.append("<li>" + error + "</li>");
                     });
-                    alerta_create_areas.show(); // Mostrar la alerta
+                    alerta_create_users.show(); // Mostrar la alerta
                 }
             }
         });
@@ -171,7 +226,7 @@
 
     // ############################################################ Funcion Editar
 
-    $('body').on('click', '#bt_area_edit', function() {
+    $('body').on('click', '#bt_user_edit', function() {
 
         var id = $(this).data('id');
         limpiarListaErrores();
@@ -180,16 +235,16 @@
 
         $.ajax({
             type: 'GET',
-            url: '{{ url('admin/areas', '') }}/' + id + '/edit',
+            url: '{{ url('admin/users', '') }}/' + id + '/edit',
             success: function(response) {
                 // Manejar la respuesta del servidor (opcional)
 
                 //console.log(response.siglas);
                 //UNA VEZ QUE SE HAYA RECEPCIONADO EL MODELO POR AJAX, SE PROCEDE A LA ACTUALIZACION
-                $("#area_title").html(response[0].name)
+                $("#user_title").html(response[0].name)
                 $("#siglas_edit").val(response[0].siglas);
                 $("#name_edit").val(response[0].name);
-                $("#area_id").val(id);
+                $("#user_id").val(id);
 
             },
             error: function(xhr) {
@@ -205,20 +260,20 @@
     // ############################################################ Funcion Actualizar
     //ajax para hacer la actualizacion enviado el formulario con los datos
 
-    $('#form_edit_area').on('submit', function(e) {
+    $('#form_edit_user').on('submit', function(e) {
 
         limpiarListaErrores();
         e.preventDefault();
 
         let formData = $(this).serialize();
-        let id = $("#area_id").val();
+        let id = $("#user_id").val();
 
         // console.log(formData);
         // console.log(id);
 
         $.ajax({
             type: 'PUT',
-            url: '{{ url('admin/areas', '') }}/' + id,
+            url: '{{ url('admin/users', '') }}/' + id,
             data: formData,
             success: function(response) {
                 // Manejar la respuesta del servidor (opcional)
@@ -232,7 +287,7 @@
                     text: "Registro actualizado correctamente"
                 });
 
-                area_table.ajax.reload(); //recargar la tabla
+                user_table.ajax.reload(); //recargar la tabla
 
                 hideModalEdit(); //ocultar modal de edicion
             },
@@ -243,12 +298,43 @@
                     $.each(errores, function(index, error) {
                         listaErrores.append("<li>" + error + "</li>");
                     });
-                    alerta_edit_areas.show(); // Mostrar la alerta
+                    alerta_edit_users.show(); // Mostrar la alerta
                 }
 
-                //onsole.error(xhr.responseText);
-                console.error(xhr.responseText);
+                //console.error(xhr.responseText);
+            }
+        });
 
+    });
+
+
+    // ############################################################ Funcion ACtivar Unidad Orgánica
+
+    //usamos el evento on() porque estamos trabajando con elementos que son dinamicos y no
+    //fueron creados al momento de iniciar la página, por ello no usamos ".click(function()"
+
+    $("body").on("click", "#user_activate", function() {
+
+        var id = $(this).data('id');
+
+        // Función para mostrar la ventana modal de confirmación
+
+        // LOGICA DE ELIMINACION
+        $.ajax({
+            type: 'GET',
+            url: '{{ url('admin/users', '') }}/' + id,
+            success: function(response) {
+                // Manejar la respuesta del servidor (opcional)
+                Swal.fire(
+                    'Activada',
+                    'El elemento ha sido activado.',
+                    'success'
+                );
+                user_table.ajax.reload(); //recargar la tabla
+            },
+            error: function(xhr) {
+                // Manejar errores (opcional)
+                console.error(xhr.responseText);
             }
 
 
@@ -258,9 +344,9 @@
     });
 
     // ############################################################ Funcion Eliminar
-    //ajax para desactivar las areas
+    //ajax para desactivar las users
 
-    $("body").on("click", "#area_delete", function() {
+    $("body").on("click", "#user_delete", function() {
 
 
         var id = $(this).data('id');
@@ -283,11 +369,11 @@
                 //console.log(id);
                 $.ajax({
                     type: 'DELETE',
-                    url: '{{ url('admin/areas', '') }}/' + id,
+                    url: '{{ url('admin/users', '') }}/' + id,
                     success: function(response) {
                         // Manejar la respuesta del servidor (opcional)
                         //console.log(response);
-                        area_table.ajax.reload(); //recargar la tabla
+                        user_table.ajax.reload(); //recargar la tabla
                     },
                     error: function(xhr) {
                         // Manejar errores (opcional)
@@ -313,12 +399,12 @@
 
     //usamos el evento on() porque estamos trabajando con elementos que son dinamicos y no
     //fueron creados al momento de iniciar la página, por ello no usamos ".click(function()"
-    $("body").on("click", "#area_activate", function() {
+    $("body").on("click", "#user_activate", function() {
         var id = $(this).data('id');
         // LOGICA DE ACTIVACION
         $.ajax({
             type: 'GET',
-            url: '{{ url('admin/areas', '') }}/' + id,
+            url: '{{ url('admin/users', '') }}/' + id,
             success: function(response) {
                 // Manejar la respuesta del servidor (opcional)
                 Swal.fire(
@@ -326,7 +412,7 @@
                     'La Unidad ha sido activada',
                     'success'
                 );
-                area_table.ajax.reload(); //recargar la tabla
+                user_table.ajax.reload(); //recargar la tabla
             },
             error: function(xhr) {
                 // Manejar errores (opcional)
@@ -334,5 +420,4 @@
             }
         });
     });
-
 </script>

@@ -21,8 +21,10 @@ class ProviderUpdateRequest extends FormRequest
      */
     public function rules()
     {
+        $id = $this->route('provider'); // Obtén el ID del registro actual desde la ruta
+
         return [
-            "bussiness_name" => "required|unique:providers"
+            "bussiness_name" => "required|unique:providers,bussiness_name,". $id
         ];
     }
     public function messages()
