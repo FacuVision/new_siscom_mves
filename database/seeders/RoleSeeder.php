@@ -23,34 +23,38 @@ class RoleSeeder extends Seeder
         $register = Role::create(["name" => "register", "name_detail" => "Registrador"]);
         //Accesos a registro de comprobantes y visualizacion de tablas de mantenimiento
 
-        Permission::create(["name"=>"admin.home"])->assignRole([$superadmin,$admin,$register]);
+        $lector = Role::create(["name" => "lector", "name_detail" => "Lector"]);
+        //Accesos a solo lectura
+
+
+        Permission::create(["name"=>"admin.home"])->assignRole([$superadmin,$admin,$register,$lector]);
 
         //areas
-        Permission::create(["name"=>"admin.areas.index"])->assignRole([$superadmin,$admin,$register]);
+        Permission::create(["name"=>"admin.areas.index"])->assignRole([$superadmin,$admin,$register,$lector]);
         Permission::create(["name"=>"admin.areas.create"])->assignRole([$superadmin,$admin,$register]);
         Permission::create(["name"=>"admin.areas.edit"])->assignRole([$superadmin,$admin]);
         Permission::create(["name"=>"admin.areas.activation"])->assignRole([$superadmin,$admin]);// permiso para activar/desactivar
 
         //contratos
-        Permission::create(["name"=>"admin.contract_types.index"])->assignRole([$superadmin,$admin,$register]);
+        Permission::create(["name"=>"admin.contract_types.index"])->assignRole([$superadmin,$admin,$register,$lector]);
         Permission::create(["name"=>"admin.contract_types.create"])->assignRole([$superadmin,$admin,$register]);
         Permission::create(["name"=>"admin.contract_types.edit"])->assignRole([$superadmin,$admin]);
         Permission::create(["name"=>"admin.contract_types.activation"])->assignRole([$superadmin,$admin]); // permiso para activar/desactivar
 
         //tipos de documento
-        Permission::create(["name"=>"admin.document_types.index"])->assignRole([$superadmin,$admin,$register]);
+        Permission::create(["name"=>"admin.document_types.index"])->assignRole([$superadmin,$admin,$register,$lector]);
         Permission::create(["name"=>"admin.document_types.create"])->assignRole([$superadmin,$admin,$register]);
         Permission::create(["name"=>"admin.document_types.edit"])->assignRole([$superadmin,$admin]);
         Permission::create(["name"=>"admin.document_types.activation"])->assignRole([$superadmin,$admin]); // permiso para activar/desactivar
 
         //proveedores
-        Permission::create(["name"=>"admin.providers.index"])->assignRole([$superadmin,$admin,$register]);
+        Permission::create(["name"=>"admin.providers.index"])->assignRole([$superadmin,$admin,$register,$lector]);
         Permission::create(["name"=>"admin.providers.create"])->assignRole([$superadmin,$admin,$register]);
         Permission::create(["name"=>"admin.providers.edit"])->assignRole([$superadmin,$admin]);
         Permission::create(["name"=>"admin.providers.activation"])->assignRole([$superadmin,$admin]); // permiso para activar/desactivar
 
         //usuarios
-        Permission::create(["name"=>"admin.users.index"])->assignRole([$superadmin,$admin,$register]);
+        Permission::create(["name"=>"admin.users.index"])->assignRole([$superadmin,$admin,$register,$lector]);
         Permission::create(["name"=>"admin.users.create"])->assignRole([$superadmin,$admin,$register]);
         Permission::create(["name"=>"admin.users.edit"])->assignRole([$superadmin,$admin]);
         Permission::create(["name"=>"admin.users.activation"])->assignRole([$superadmin,$admin]); // permiso para activar/desactivar
