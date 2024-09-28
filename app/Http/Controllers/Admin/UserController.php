@@ -89,9 +89,32 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        // $user = User::FindOrFail($id);
+        //$roles = $user->roles;
+
+        // $user = User::select("users.id", "users.name as user_name", "users.lastname", "users.n_document", "users.document_type", "users.status", "r.name_detail", "r.name as rol_name")
+        // ->join('model_has_roles as mr', 'users.id', '=', 'mr.model_id')
+        // ->join('roles as r', 'r.id', '=', 'mr.role_id')
+        // ->get();
+
+        $user = User::with('roles')->findOrFail($id);
+
+
+        $edicion = [
+            "name" => $user->name,
+            "creation_document" => $user->creation_document,
+            "id" => $user->id,
+            "lastname" => $user->lastname,
+            "n_document" => $user->n_document,
+            "document_type" => $user->document_type,
+            "email" => $user->email,
+            "rol_name" => $user->roles[0]->name,
+            "rol_detail" => $user->roles[0]->name_detail
+        ];
+
+        return $edicion;
     }
 
     /**

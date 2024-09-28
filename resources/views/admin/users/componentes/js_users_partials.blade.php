@@ -2,6 +2,7 @@
 
 <script>
     let user_table; // Declarar la variable en un ámbito más amplio
+    let selectRole; // Declarar la variable en un ámbito más amplio
     let listaErrores = $("#lista-errores-users-edit");
     let alerta_edit_users = $("#alerta_edit_users");
 
@@ -32,6 +33,16 @@
                 selectroles.empty(); // Limpia cualquier opción previa
                 response.forEach(function(rol) {
                     selectroles.append($('<option>', {
+                        value: rol.name,
+                        text: rol.name_detail
+                    }));
+
+                });
+
+                var selectroles_edit = $('#user_select_roles_edit');
+                selectroles_edit.empty(); // Limpia cualquier opción previa
+                response.forEach(function(rol) {
+                    selectroles_edit.append($('<option>', {
                         value: rol.name,
                         text: rol.name_detail
                     }));
@@ -132,11 +143,9 @@
             }
         });
 
+        cargar_roles_de_acceso();
         user_table = cargar_lista_users();
     });
-
-
-
 
 
     // ############################################################ Funcion Ocultar modal de creacion
@@ -174,18 +183,19 @@
 
     $('#create_user_buttom_modal').on('click', function(e) {
         limpiarListaErroresCreate();
-        cargar_roles_de_acceso();
     });
 
     // ############################################################ Funcion Crear
     $('#form_create_user').on('submit', function(e) {
+
+        let $form = $(this); // Guarda una referencia al formulario
 
         limpiarListaErroresCreate();
         e.preventDefault();
 
         let formData = $(this).serialize();
 
-        console.log(formData);
+        //console.log(formData);
 
         $.ajax({
             type: 'POST',
@@ -202,11 +212,13 @@
                     text: 'Registro actualizado correctamente'
                 });
 
+                $form.find('input[type="text"]').val('');
+
                 hideModal(); //ocultar modal de creacion
             },
             error: function(xhr) {
 
-                console.log(xhr);
+                //console.log(xhr);
 
 
                 // Manejar errores (opcional)
@@ -239,12 +251,28 @@
             success: function(response) {
                 // Manejar la respuesta del servidor (opcional)
 
-                //console.log(response.siglas);
+
+                console.log(response);
                 //UNA VEZ QUE SE HAYA RECEPCIONADO EL MODELO POR AJAX, SE PROCEDE A LA ACTUALIZACION
-                $("#user_title").html(response[0].name)
-                $("#siglas_edit").val(response[0].siglas);
-                $("#name_edit").val(response[0].name);
-                $("#user_id").val(id);
+
+
+                $("#user_edit_title").html(response.name)
+                $("#user_id_edit").html(response.id)
+                $("#user_edit_name").val(response.name)
+                $("#user_edit_lastname").val(response.lastname)
+                $('#user_edit_document_type').val(response.document_type);
+                $("#user_edit_n_document").val(response.n_document)
+                $("#user_edit_creation_document").val(response.creation_document)
+                $("#user_edit_email").val(response.email)
+
+                $('#user_select_roles_edit').val(response.rol_name);
+
+
+                // $("#siglas_edit").val(response[0].siglas);
+                // $("#name_edit").val(response[0].name);
+                // $("#user_id").val(id);
+
+
 
             },
             error: function(xhr) {
