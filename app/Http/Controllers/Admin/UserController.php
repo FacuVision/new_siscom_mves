@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\UserCreateRequest;
+use App\Http\Requests\Admin\UserUpdateRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
@@ -120,9 +121,16 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UserUpdateRequest $request, $id)
     {
-        //
+        $user = User::FindOrFail($id);
+
+        $user->update([
+            "name" => $request->name,
+            "lastname" => $request->name,
+            "user_select_roles" => $request->user_select_roles,
+        ]);
+
     }
 
     /**

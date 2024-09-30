@@ -11,7 +11,7 @@ class UserUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,18 @@ class UserUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "name" => "required",
+            "lastname" => "required",
+            'user_select_roles' => 'required'
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            "name.required" => "El nombre es obligatorio.",
+            "lastname.required" => "El apellido es obligatorio.",
+            'user_select_roles.required' => 'El rol de usuario es obligatorio'
         ];
     }
 }

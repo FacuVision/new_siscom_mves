@@ -252,7 +252,7 @@
                 // Manejar la respuesta del servidor (opcional)
 
 
-                console.log(response);
+                //console.log(response);
                 //UNA VEZ QUE SE HAYA RECEPCIONADO EL MODELO POR AJAX, SE PROCEDE A LA ACTUALIZACION
 
 
@@ -294,9 +294,9 @@
         e.preventDefault();
 
         let formData = $(this).serialize();
-        let id = $("#user_id").val();
+        let id = $("#user_id_edit").val();
 
-        // console.log(formData);
+        //console.log(formData);
         // console.log(id);
 
         $.ajax({
@@ -309,11 +309,11 @@
 
                 // Muestra Sweet Alert con el mensaje de respuesta
 
-                Swal.fire({
-                    icon: "success",
-                    title: "Éxito!",
-                    text: "Registro actualizado correctamente"
-                });
+                // Swal.fire({
+                //     icon: "success",
+                //     title: "Éxito!",
+                //     text: "Registro actualizado correctamente"
+                // });
 
                 user_table.ajax.reload(); //recargar la tabla
 

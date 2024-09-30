@@ -156,8 +156,8 @@
                             <div class="col">
                                 <div class="mb-3">
                                     <label for="user_edit_document_type" class="form-label">Tipo de documento</label>
-                                    <select name="document_type" class="form-control form-control-sm"
-                                        id="user_edit_document_type" placeholder="Tipo de documento">
+                                    <select name="document_type" class="form-control form-control-sm bg-secondary"
+                                        id="user_edit_document_type" placeholder="Tipo de documento" disabled>
                                         <option value="DNI">DNI</option>
                                         <option value="PASAPORTE">Pasaporte</option>
                                         <option value="CARNET DE EXTRANJERIA">Carnet de extranjeria</option>
@@ -171,8 +171,8 @@
                                 <div class="mb-3">
                                     <label for="user_edit_n_document" class="form-label">Número de documento</label>
                                     <input name="n_document" id="user_edit_n_document" autocomplete="off"
-                                        class="form-control form-control-sm" type="text"
-                                        placeholder="N° de Documento">
+                                        class="form-control form-control-sm bg-secondary" type="text"
+                                        placeholder="N° de Documento" disabled>
                                 </div>
                             </div>
                         </div>
@@ -181,8 +181,8 @@
                                 <div class="mb-3">
                                     <label for="creation_document" class="form-label">Documento de Creacion</label>
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control form-control-sm" name="creation_document"
-                                            id="user_edit_creation_document" placeholder="Documento de creacion">
+                                        <input type="text" class="form-control form-control-sm bg-secondary" name="creation_document"
+                                            id="user_edit_creation_document" placeholder="Documento de creacion" disabled>
                                         <span class="input-group-text form-control-sm"> /MVES </span>
                                     </div>
                                 </div>
@@ -193,9 +193,9 @@
                                 <div class="mb-3">
                                     <label for="user_edit_email" class="form-label">Correo personal o institucional</label>
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control form-control-sm" name="email"
-                                            id="user_edit_email" placeholder="Correo personal o institucional">
-                                        <span class="input-group-text form-control-sm"> @ </span>
+                                        <input type="text" class="form-control form-control-sm bg-secondary" name="email"
+                                            id="user_edit_email" placeholder="Correo personal o institucional" disabled>
+                                        <span class="input-group-text form-control-sm bg"> @ </span>
                                     </div>
                                 </div>
                             </div>
@@ -214,7 +214,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" id="close_edit"
                         data-dismiss="modal">Cerrar</button>
-                    <input type="submit" value="Registrar" id="bt_edit_user" class="btn btn-primary">
+                    <input type="submit" value="Actualizar" id="bt_edit_user" class="btn btn-primary">
                 </div>
             </div>
         </div>
